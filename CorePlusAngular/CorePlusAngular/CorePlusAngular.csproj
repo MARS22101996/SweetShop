@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\app.component.ts" />
+    <None Remove="ClientApp\app\app.module.ts" />
+    <None Remove="ClientApp\app\data.service.ts" />
+    <None Remove="ClientApp\app\not-found.component.ts" />
+    <None Remove="ClientApp\app\product-create.component.ts" />
+    <None Remove="ClientApp\app\product-detail.component.ts" />
+    <None Remove="ClientApp\app\product-edit.component.ts" />
+    <None Remove="ClientApp\app\product-form.component.ts" />
+    <None Remove="ClientApp\app\product-list.component.ts" />
+    <None Remove="ClientApp\main.ts" />
+    <None Remove="ClientApp\polyfills.ts" />
+    <None Remove="webpack.config.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\product-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\product-detail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\product-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\product-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\product-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\main.ts" />
+    <TypeScriptCompile Include="ClientApp\polyfills.ts" />
+    <TypeScriptCompile Include="webpack.config.ts" />
+    <TypeScriptCompile Include="wwwroot\index.html" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<h1>Список моделей</h1>
+<div>
+	<input routerLink="/create" type="button" value="Добавить" class="btn btn-default" />
+</div>
+<table class="table table-striped">
+<thead>
+<tr>
+	<td>Модель</td>
+	<td>Производитель</td>
+	<td>Цена</td>
+	<td></td>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let p of products">
+	<td>{{p?.name}}</td>
+	<td>{{p?.company}}</td>
+	<td>{{p?.price}}</td>
+	<td>
+		<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Изменить</a>
+		<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Удалить</button>
+	</td>
+</tr>
+</tbody>
+</table>
