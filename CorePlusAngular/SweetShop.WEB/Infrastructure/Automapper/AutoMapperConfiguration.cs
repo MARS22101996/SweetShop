@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using SweetShop.BLL.Infrastructure.Automapper;
 
-namespace TeamService.WEB.Infrastructure.Automapper
+namespace SweetShop.WEB.Infrastructure.Automapper
 {
     public class AutoMapperConfiguration
     {

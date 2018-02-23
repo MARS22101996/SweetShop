@@ -1,8 +1,8 @@
 ﻿<div>
-	<h2>New product</h2>
+	<h2 class="site-heading-upper text-primary mb-3">New product</h2>
 	<product-form [(product)]="product"></product-form>
 	<div class="form-group">
-		<input type="button" value="Save" (click)="save()" class="btn btn-success" />
-		<a routerLink="/" class="btn btn-warning">Cancel</a>
+		<input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+		<a [routerLink]="['/products']" class="btn btn-danger">Cancel</a>
 	</div>
 </div>

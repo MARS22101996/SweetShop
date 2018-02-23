@@ -5,7 +5,7 @@ using SweetShop.BLL.Infrastructure.DI;
 using SweetShop.BLL.Interfaces;
 using SweetShop.BLL.Services;
 
-namespace TeamService.WEB.Infrastructure.DI
+namespace SweetShop.WEB.Infrastructure.DI
 {
     public static class DependencyResolver
     {

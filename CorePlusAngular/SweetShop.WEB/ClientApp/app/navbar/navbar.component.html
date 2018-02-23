@@ -1,15 +1,21 @@
-<div class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" >Sweet shop</a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          <a [routerLink]="['/products']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"> All products</a>
-        </li>
-        <li><a [routerLink]="['/create']" routerLinkActive="active">Create new product</a></li>
-      </ul>
-    </div>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+  <a [routerLink]="['/home']" routerLinkActive="active" class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none"
+    href="#">Sweet shop</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+    aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item px-lg-4">
+        <a [routerLink]="['/products']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link text-uppercase text-expanded">All products
+                <span class="sr-only">(current)</span>
+              </a>
+      </li>
+      <li class="nav-item px-lg-4">
+        <a [routerLink]="['/create']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Create new product</a>
+      </li>
+    </ul>
   </div>
-</div>
+</nav>

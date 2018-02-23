@@ -1,4 +1,4 @@
-﻿<h1>List of products</h1>
+﻿<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
 <table class="table table-striped">
 <thead>
 <tr>
@@ -14,7 +14,7 @@
 	<td>{{p?.company}}</td>
 	<td>{{p?.price}}</td>
 	<td>
-		<a [routerLink]="['edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
+		<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
 		<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
 	</td>
 </tr>

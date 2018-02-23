@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SweetShop.DAL.Context;
-using TeamService.WEB.Infrastructure.DI;
+using SweetShop.WEB.Infrastructure.DI;
 
 namespace SweetShop.WEB
 {

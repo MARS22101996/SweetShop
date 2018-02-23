@@ -12,9 +12,11 @@ import { DataService } from './products/data.service';
 import { NotFoundComponent } from './error/not-found.component';
 import { ProductFormComponent } from './products/product-form.component';
 import { NavBarComponent } from "./navbar/navbar.component";
+import { HomePageComponent } from "./home/home.component";
 
 
 const appRoutes: Routes = [
+    { path: 'home', component: HomePageComponent },
     { path: 'products', component: ProductListComponent },
     { path: 'product/:id', component: ProductDetailComponent },
     { path: 'create', component: ProductCreateComponent },
@@ -25,7 +27,16 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-	declarations: [AppComponent, ProductListComponent, ProductDetailComponent, NotFoundComponent, ProductEditComponent, ProductCreateComponent, ProductFormComponent, NavBarComponent],
+    declarations: [
+        AppComponent,
+        ProductListComponent,
+        ProductDetailComponent,
+        NotFoundComponent,
+        ProductEditComponent,
+        ProductCreateComponent,
+        ProductFormComponent,
+        NavBarComponent,
+        HomePageComponent],
     providers: [DataService],
     bootstrap: [AppComponent]
 })

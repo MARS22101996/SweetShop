@@ -47,6 +47,7 @@ namespace SweetShop.WEB.Controllers
             {
                 var producDto = _mapper.Map<ProductDto>(product);
                 _productService.Create(producDto);
+
                 return Ok(product);
             }
             return BadRequest(ModelState);
@@ -59,6 +60,7 @@ namespace SweetShop.WEB.Controllers
             {
                 var producDto = _mapper.Map<ProductDto>(product);
                 _productService.Update(producDto);
+
                 return Ok();
             }
             return BadRequest(ModelState);
@@ -68,7 +70,6 @@ namespace SweetShop.WEB.Controllers
         public IActionResult Delete(int id)
         {
             var product = _productService.Get(id);
-
             _productService.Delete(id);
 
             return Ok(product);

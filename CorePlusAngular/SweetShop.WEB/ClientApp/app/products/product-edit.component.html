@@ -1,8 +1,8 @@
 ﻿<div *ngIf="loaded">
-	<h2>Edit product</h2>
+	<h2 class="site-heading-upper text-primary mb-3">Edit product</h2>
 	<product-form [(product)]="product"></product-form>
 	<div class="form-group">
-		<input type="button" value="Save" (click)="save()" class="btn btn-success" />
+		<input type="button" value="Save" (click)="save()" class="btn btn-primary" />
 	</div>
 </div>
-<a routerLink="/" class="nav-link">Back</a>
+<a [routerLink]="['/products']" class="nav-link">Back</a>

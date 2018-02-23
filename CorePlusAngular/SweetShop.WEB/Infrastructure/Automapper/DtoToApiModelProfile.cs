@@ -2,7 +2,7 @@
 using SweetShop.BLL.Dto;
 using SweetShop.WEB.Model;
 
-namespace TeamService.WEB.Infrastructure.Automapper
+namespace SweetShop.WEB.Infrastructure.Automapper
 {
     public class DtoToApiModelProfile : Profile
     {
