@@ -16,8 +16,8 @@
 <tbody>
 <tr *ngFor="let p of products">
 	<td>{{p?.name}}</td>
-	<td>{{p?.company}}</td>
-	<td>{{p?.price}}</td>
+	<td>{{p?.company | uppercase }}</td>
+	<td>{{p?.price  | currency: 'USD': true }}</td>
 	<td>
 		<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
 		<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
