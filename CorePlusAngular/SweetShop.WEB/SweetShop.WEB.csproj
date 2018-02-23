@@ -39,13 +39,13 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\product-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\product-detail.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\product-edit.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\product-form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\product-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\error\not-found.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\product-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\product-detail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\product-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\product-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\products\product-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\main.ts" />
     <TypeScriptCompile Include="ClientApp\polyfills.ts" />
     <TypeScriptCompile Include="webpack.config.ts" />

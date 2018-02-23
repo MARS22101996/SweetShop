@@ -1,0 +1,8 @@
+﻿<div>
+	<h2>New product</h2>
+	<product-form [(product)]="product"></product-form>
+	<div class="form-group">
+		<input type="button" value="Save" (click)="save()" class="btn btn-success" />
+		<a routerLink="/" class="btn btn-warning">Cancel</a>
+	</div>
+</div>

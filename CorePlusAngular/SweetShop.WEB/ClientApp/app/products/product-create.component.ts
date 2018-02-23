@@ -11,6 +11,6 @@ export class ProductCreateComponent {
     product: Product = new Product();
     constructor(private dataService: DataService, private router: Router) { }
     save() {
-        this.dataService.createProduct(this.product).subscribe(data => this.router.navigateByUrl("/"));
+        this.dataService.createProduct(this.product).subscribe(data => this.router.navigateByUrl("/products"));
     }
 }
