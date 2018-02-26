@@ -1,8 +1,12 @@
-﻿namespace SweetShop.DAL.Interfaces
+﻿using SweetShop.DAL.Entities;
+
+namespace SweetShop.DAL.Interfaces
 {
     public interface IUnitOfWork
     {
-        IProductRepository Products { get; }
+        IGenericRepository<Product> Products { get; }
+
+        IGenericRepository<Company> Companies { get; }
 
         void Save();
     }

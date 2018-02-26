@@ -1,4 +1,6 @@
-﻿namespace SweetShop.DAL.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SweetShop.DAL.Entities
 {
     public class Product
     {
@@ -6,7 +8,8 @@
 
         public string Name { get; set; }
 
-        public string Company { get; set; }
+        [ForeignKey("Company")]
+        public int Company { get; set; }
 
         public decimal Price { get; set; }
     }

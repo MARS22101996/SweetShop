@@ -9,6 +9,7 @@ namespace SweetShop.WEB.Infrastructure.Automapper
         public ApiModelToDtoProfile()
         {
             CreateMap<ProductApiModel, ProductDto>();
+            CreateMap<CompanyApiModel, CompanyDto>();
         }
     }
 }

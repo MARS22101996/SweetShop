@@ -13,11 +13,17 @@ import { NotFoundComponent } from './error/not-found.component';
 import { ProductFormComponent } from './products/product-form.component';
 import { NavBarComponent } from "./navbar/navbar.component";
 import { HomePageComponent } from "./home/home.component";
+import { CompanyListComponent } from "./company/company-list.component";
+import { CompanyService } from "./company/company.service";
+import { CompanyCreateComponent } from "./company/company-create.component";
+import { CompanyFormComponent } from "./company/company-form.component";
 
 
 const appRoutes: Routes = [
     { path: 'home', component: HomePageComponent },
     { path: 'products', component: ProductListComponent },
+    { path: 'companies/create', component: CompanyCreateComponent },
+    { path: 'companies', component: CompanyListComponent },
     { path: 'product/:id', component: ProductDetailComponent },
     { path: 'create', component: ProductCreateComponent },
     { path: 'edit/:id', component: ProductEditComponent },
@@ -36,8 +42,13 @@ const appRoutes: Routes = [
         ProductCreateComponent,
         ProductFormComponent,
         NavBarComponent,
-        HomePageComponent],
-    providers: [DataService],
+        HomePageComponent,
+        CompanyListComponent,
+        CompanyCreateComponent,
+        CompanyFormComponent
+    ],
+    providers: [DataService,
+                CompanyService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

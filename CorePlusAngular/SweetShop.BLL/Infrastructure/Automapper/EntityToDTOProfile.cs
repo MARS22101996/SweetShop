@@ -9,6 +9,7 @@ namespace SweetShop.BLL.Infrastructure.Automapper
         public EntityToDtoProfile()
         {
             CreateMap<Product, ProductDto>();
+            CreateMap<Company, CompanyDto>();
         }
     }
 }

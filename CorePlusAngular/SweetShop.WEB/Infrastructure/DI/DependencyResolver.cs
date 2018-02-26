@@ -14,6 +14,7 @@ namespace SweetShop.WEB.Infrastructure.DI
             services.AddSingleton(configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICompanyService, CompanyService>();
 
             DependencyResolverModule.Configure(services);
         }

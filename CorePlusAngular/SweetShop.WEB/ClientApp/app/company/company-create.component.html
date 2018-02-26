@@ -1,0 +1,8 @@
+<div>
+	<h2 class="site-heading-upper text-primary mb-3">New company</h2>
+	<company-form [(company)]="company"></company-form>
+	<div class="form-group">
+		<input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+		<a [routerLink]="['/companies']" class="btn btn-danger">Cancel</a>
+	</div>
+</div>

@@ -12,5 +12,6 @@ namespace SweetShop.DAL.Context
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }

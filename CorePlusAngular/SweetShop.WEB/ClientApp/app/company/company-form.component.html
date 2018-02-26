@@ -1,0 +1,17 @@
+<form #newEventForm="ngForm" novalidate>
+<div class="form-group" [ngClass]="{'error': newEventForm.controls.name?.invalid && newEventForm.controls.name?.touched}" >
+	<label> Name </label>
+	<em *ngIf="newEventForm.controls.name?.invalid && (newEventForm.controls.name?.touched)">Required</em>
+	<input type="text" [(ngModel)]="company.name" name="name" required class="form-control" placeholder="product name..."/>
+</div>
+<div class="form-group" [ngClass]="{'error': newEventForm.controls.description?.invalid && newEventForm.controls.description?.touched}" >
+	<label> Description </label>
+	<em *ngIf="newEventForm.controls.description?.invalid && (newEventForm.controls.description?.touched)">Required</em>
+	<input type="text" [(ngModel)]="company.description" name="description" required class="form-control" placeholder="product company..." />
+</div>
+<div class="form-group" [ngClass]="{'error':  newEventForm.controls.homePage?.invalid && newEventForm.controls.homePage?.touched}" >
+	<label> HomePage </label>
+	<em *ngIf="newEventForm.controls.homePage?.invalid && (newEventForm.controls.homePage?.touched)">Required</em>
+	<input  type="text" [(ngModel)]="company.homePage" name="homePage" required class="form-control" placeholder="product price..." />
+</div>
+</form>

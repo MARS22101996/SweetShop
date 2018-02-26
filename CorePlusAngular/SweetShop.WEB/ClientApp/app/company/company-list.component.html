@@ -1,0 +1,32 @@
+<!-- <section class="page-section cta">
+    <div class="row">
+    <div class="col-xl-9 mx-auto">
+        <div class="cta-inner text-center rounded"> -->
+            <h1 class="site-heading-upper text-primary mb-3">List of companies</h1>
+            <a [routerLink]="['/companies/create']" class="btn btn-sm btn-primary">Create</a>
+            <table class="table table-striped products">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>HomePage</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of companies">
+                        <td>{{p?.name}}</td>
+                        <td>{{p?.description }}</td>
+                        <td>{{p?.homePage }}</td>
+                        <td>
+                            <a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
+                            <button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- </div>
+    </div>
+</div>
+</section> -->
+

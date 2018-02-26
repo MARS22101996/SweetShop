@@ -220,11 +220,10 @@ p {
 
 .footer {
 	background-color: rgba(47, 23, 15, 0.9);
-	position: absolute;
-	right: 0;
-	bottom: 0;
+	position: fixed;
 	left: 0;
-	padding: 1rem;
+	bottom: 0;
+	width: 100%;
 }
 
 .text-primary {
@@ -253,6 +252,6 @@ p {
   font-weight: 100 !important;
 }
 
-table {
+.products {
 	color: white !important;
 }
