@@ -1,0 +1,8 @@
+<div *ngIf="loaded">
+	<h2 class="site-heading-upper text-primary mb-3">Edit company</h2>
+	<company-form [(company)]="company"></company-form>
+	<div class="form-group">
+		<input type="button" value="Save" (click)="save()" class="btn btn-primary" />
+	</div>
+</div>
+<a [routerLink]="['/companies']" class="nav-link">Back</a>

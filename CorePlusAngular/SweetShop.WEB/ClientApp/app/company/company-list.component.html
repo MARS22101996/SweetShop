@@ -19,7 +19,7 @@
                         <td>{{p?.description }}</td>
                         <td>{{p?.homePage }}</td>
                         <td>
-                            <a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
+                            <a [routerLink]="['/company/edit/', p.id]" class="btn btn-sm btn-primary">Edit</a>
                             <button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
                         </td>
                     </tr>

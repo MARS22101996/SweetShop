@@ -17,6 +17,7 @@ import { CompanyListComponent } from "./company/company-list.component";
 import { CompanyService } from "./company/company.service";
 import { CompanyCreateComponent } from "./company/company-create.component";
 import { CompanyFormComponent } from "./company/company-form.component";
+import { CompanyEditComponent } from "./company/company-edit.component";
 
 
 const appRoutes: Routes = [
@@ -24,12 +25,14 @@ const appRoutes: Routes = [
     { path: 'products', component: ProductListComponent },
     { path: 'companies/create', component: CompanyCreateComponent },
     { path: 'companies', component: CompanyListComponent },
-    { path: 'product/:id', component: ProductDetailComponent },
+    { path: 'product/:id', component: ProductDetailComponent }, 
+    { path: 'company/edit/:id', component: CompanyEditComponent },
     { path: 'create', component: ProductCreateComponent },
     { path: 'edit/:id', component: ProductEditComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
+
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
         HomePageComponent,
         CompanyListComponent,
         CompanyCreateComponent,
-        CompanyFormComponent
+        CompanyFormComponent,
+        CompanyEditComponent
     ],
     providers: [DataService,
                 CompanyService],
