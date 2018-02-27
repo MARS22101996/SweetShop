@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using SweetShop.DAL.Context;
+using SweetShop.DAL.Entities;
 using SweetShop.DAL.Interfaces;
 
 namespace SweetShop.DAL.Repositories
@@ -17,18 +22,54 @@ namespace SweetShop.DAL.Repositories
         {
             //if (!_context.Products.Any())
             //{
-            //    _context.Companies.Add(new Company { Name = "Roshen", Description = "Roshen", HomePage = "http://test" });
+            //    var company = new Company { Name = "Roshen", Description = "Roshen", HomePage = "http://test"};
+            //    _context.Companies.Add(company);
 
+            //    _context.Products.Add(new Product
+            //    {
+            //        Name = "Chocolate",
+            //        Company = company,
+            //        Price = 79900,
+            //        CompanyId = company.Id
+            //    });
+            //    _context.Products.Add(new Product
+            //    {
+            //        Name = "Cake",
+            //        Company = company,
+            //        Price = 49900,
+            //        CompanyId = company.Id
+            //    });
+            //    _context.Products.Add(new Product
+            //    {
+            //        Name = "Sweets",
+            //        Company = company,
+            //        Price = 52900,
+            //        CompanyId = company.Id
+            //    });
 
-            //    _context.Products.Add(new Product { Name = "iPhone X", Company = 1, Price = 79900 });
-            //    _context.Products.Add(new Product { Name = "Galaxy S8", Company = 1, Price = 49900 });
-            //    _context.Products.Add(new Product { Name = "Pixel 2", Company = 1, Price = 52900 });
             //    _context.SaveChanges();
             //}
 
             return _context.Set<TEntity>();
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return _context.Set<Product>().Include(x=>x.Company);
+        }
+
+        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeExpressions)
+        {
+            var dbSet = _context.Set<TEntity>();
+
+            IQueryable<TEntity> query = null;
+            foreach (var includeExpression in includeExpressions)
+            {
+                query = dbSet.Include(includeExpression);
+            }
+
+            return query ?? dbSet;
+        }
         public TEntity Get(int id)
         {
             var entity = _context.Set<TEntity>().Find(id);

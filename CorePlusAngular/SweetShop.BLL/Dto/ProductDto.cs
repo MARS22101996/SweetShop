@@ -6,8 +6,10 @@
 
         public string Name { get; set; }
 
-        public string Company { get; set; }
+        public int CompanyId { get; set; }
 
         public decimal Price { get; set; }
+
+        public CompanyDto Company { get; set; }
     }
 }

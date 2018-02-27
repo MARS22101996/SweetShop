@@ -11,8 +11,8 @@ using System;
 namespace SweetShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20180226125638_change-name")]
-    partial class changename
+    [Migration("20180227090129_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,12 +21,28 @@ namespace SweetShop.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("SweetShop.DAL.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("HomePage");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
             modelBuilder.Entity("SweetShop.DAL.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Company");
+                    b.Property<int>("CompanyId");
 
                     b.Property<string>("Name");
 
@@ -34,7 +50,17 @@ namespace SweetShop.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Generics");
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SweetShop.DAL.Entities.Product", b =>
+                {
+                    b.HasOne("SweetShop.DAL.Entities.Company", "Company")
+                        .WithMany("Products")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -5,15 +5,10 @@ using System.Collections.Generic;
 
 namespace SweetShop.DAL.Migrations
 {
-    public partial class Addcompanies : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "CompanyId",
-                table: "Generics",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
@@ -29,36 +24,40 @@ namespace SweetShop.DAL.Migrations
                     table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CompanyId",
-                table: "Generics",
+                table: "Products",
                 column: "CompanyId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Companies_CompanyId",
-                table: "Generics",
-                column: "CompanyId",
-                principalTable: "Companies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_Companies_CompanyId",
-                table: "Generics");
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Companies");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Products_CompanyId",
-                table: "Generics");
-
-            migrationBuilder.DropColumn(
-                name: "CompanyId",
-                table: "Generics");
         }
     }
 }

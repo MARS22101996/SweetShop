@@ -32,7 +32,7 @@ namespace SweetShop.WEB
         {
             DependencyResolver.Resolve(services, Configuration);
 
-            const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=productsdatabase;Trusted_Connection=True;";
+            const string connectionString = "Server=.\\SQLEXPRESS;Database=sweetShopDb;Trusted_Connection=True;";
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 

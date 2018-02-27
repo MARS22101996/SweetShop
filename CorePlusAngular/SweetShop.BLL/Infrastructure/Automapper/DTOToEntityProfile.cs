@@ -8,7 +8,7 @@ namespace SweetShop.BLL.Infrastructure.Automapper
     {
         public DtoToEntityProfile()
         {
-            CreateMap<ProductDto, Product>();
+            CreateMap<ProductDto, Product>().ForSourceMember(x => x.Company, opt => opt.Ignore());
             CreateMap<CompanyDto, Company>();
         }
     }

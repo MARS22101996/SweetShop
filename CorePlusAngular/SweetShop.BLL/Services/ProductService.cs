@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Infrastructure.Exceptions;
@@ -20,7 +21,8 @@ namespace SweetShop.BLL.Services
         }
         public IEnumerable<ProductDto> GetAll()
         {
-            var products = _unitOfWork.Products.GetAll();
+            var products = _unitOfWork.Products.GetAllProducts().ToList();
+
             var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
 
             return productDtos;
@@ -42,6 +44,10 @@ namespace SweetShop.BLL.Services
         public void Create(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
+
+            var company = _unitOfWork.Companies.Get(product.CompanyId);
+
+            product.Company = company;
 
             _unitOfWork.Products.Create(product);
 

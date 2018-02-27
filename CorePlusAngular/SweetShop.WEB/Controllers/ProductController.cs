@@ -23,19 +23,19 @@ namespace SweetShop.WEB.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductApiModel> Get()
+        public IEnumerable<ProductViewApiModel> Get()
         {
             var productDtos = _productService.GetAll();
-            var productApiModels = _mapper.Map<IEnumerable<ProductApiModel>>(productDtos);
+            var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos);
 
             return productApiModels;
         }
 
         [HttpGet("{id}")]
-        public ProductApiModel Get(int id)
+        public ProductViewApiModel Get(int id)
         {
             var productDto = _productService.Get(id);
-            var productApiModel = _mapper.Map<ProductApiModel>(productDto);
+            var productApiModel = _mapper.Map<ProductViewApiModel>(productDto);
 
             return productApiModel;
         }

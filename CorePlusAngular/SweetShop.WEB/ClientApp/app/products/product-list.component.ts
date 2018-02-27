@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import { Product } from './product';
+
+import { ProductView } from "./product-view";
 
 @Component({
     templateUrl: './product-list.component.html',
@@ -8,7 +9,7 @@ import { Product } from './product';
 })
 export class ProductListComponent implements OnInit {
 
-    products: Product[];
+    products: ProductView[];
     sortBy: string;
     constructor(private dataService: DataService) { }
 
@@ -17,7 +18,7 @@ export class ProductListComponent implements OnInit {
     }
 
     load() {
-        this.dataService.getProducts().subscribe((data: Product[]) => this.products = data);
+        this.dataService.getProducts().subscribe((data: ProductView[]) => this.products = data);
     }
 
     delete(id: number) {
@@ -40,7 +41,7 @@ export class ProductListComponent implements OnInit {
     }
 }
 
-function sortByNameExpression(s1: Product, s2: Product) {
+function sortByNameExpression(s1: ProductView, s2: ProductView) {
     if (s1.name > s2.name) {
         return 1;
     }
@@ -52,7 +53,7 @@ function sortByNameExpression(s1: Product, s2: Product) {
     return 0;
 }
 
-function sortByCompanyExpression(s1: Product, s2: Product) {
+function sortByCompanyExpression(s1: ProductView, s2: ProductView) {
     if (s1.company > s2.company) {
         return 1;
     }
@@ -64,7 +65,7 @@ function sortByCompanyExpression(s1: Product, s2: Product) {
     return 0;
 }
 
-function sortByPriceExpression(s1: Product, s2: Product) {
+function sortByPriceExpression(s1: ProductView, s2: ProductView) {
     if (s1.price > s2.price) {
         return 1;
     }

@@ -1,7 +1,7 @@
-﻿export class Product {
+export class ProductView {
 	constructor(
 		public id?: number,
 		public name?: string,
-		public companyId?: number,
+		public company?: string,
 		public price?: number) { }
 }

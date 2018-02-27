@@ -10,6 +10,9 @@ namespace SweetShop.WEB.Infrastructure.Automapper
         {
             CreateMap<ProductDto, ProductApiModel>();
             CreateMap<CompanyDto, CompanyApiModel>();
+            CreateMap<ProductDto, ProductViewApiModel>()
+                .ForMember(x => x.Company, y => y.MapFrom(z => z.Company.Name))
+                .ForSourceMember(x => x.Company, opt => opt.Ignore());
         }
     }
 }

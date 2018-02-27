@@ -9,8 +9,10 @@ namespace SweetShop.DAL.Entities
         public string Name { get; set; }
 
         [ForeignKey("Company")]
-        public int Company { get; set; }
+        public int CompanyId { get; set; }
 
         public decimal Price { get; set; }
+
+        public virtual Company Company { get; set; }
     }
 }

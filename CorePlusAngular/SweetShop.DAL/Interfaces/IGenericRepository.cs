@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using SweetShop.DAL.Entities;
 
 namespace SweetShop.DAL.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
+
+        IEnumerable<Product> GetAllProducts();
 
         TEntity Get(int id);
 

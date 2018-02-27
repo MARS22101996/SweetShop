@@ -41,9 +41,7 @@ namespace SweetShop.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Company");
-
-                    b.Property<int?>("CompanyId");
+                    b.Property<int>("CompanyId");
 
                     b.Property<string>("Name");
 
@@ -53,14 +51,15 @@ namespace SweetShop.DAL.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Generics");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("SweetShop.DAL.Entities.Product", b =>
                 {
-                    b.HasOne("SweetShop.DAL.Entities.Company")
-                        .WithMany("Generics")
-                        .HasForeignKey("CompanyId");
+                    b.HasOne("SweetShop.DAL.Entities.Company", "Company")
+                        .WithMany("Products")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,8 @@
 ﻿import { Component, Input } from '@angular/core';
 import { Product } from './product';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { CompanyService } from "../company/company.service";
+import { Company } from "../company/company";
 
 
 @Component({
@@ -15,4 +17,19 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 export class ProductFormComponent {
     @Input() product: Product;
+    companies: Company[];
+
+    constructor(private dataService: CompanyService)
+    { }
+
+    ngOnInit() {
+        this.load();
+
+    }
+
+    load() {
+        this.dataService.getCompanies().subscribe((data: Company[]) => this.companies = data);
+    }
+
+
 }

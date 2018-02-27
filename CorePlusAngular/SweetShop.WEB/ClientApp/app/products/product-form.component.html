@@ -4,10 +4,15 @@
 	<em *ngIf="newEventForm.controls.name?.invalid && (newEventForm.controls.name?.touched)">Required</em>
 	<input type="text" [(ngModel)]="product.name" name="name" required class="form-control" placeholder="product name..."/>
 </div>
-<div class="form-group" [ngClass]="{'error': newEventForm.controls.company?.invalid && newEventForm.controls.company?.touched}" >
+<div class="form-group" [ngClass]="{'error': newEventForm.controls.companyId?.invalid && newEventForm.controls.companyId?.touched}" >
 	<label> Manufacturer </label>
-	<em *ngIf="newEventForm.controls.company?.invalid && (newEventForm.controls.company?.touched)">Required</em>
-	<input type="text" [(ngModel)]="product.company" name="company" required class="form-control" placeholder="product company..." />
+	<em *ngIf="newEventForm.controls.companyId?.invalid && (newEventForm.controls.companyId?.touched)">Required</em>
+	<select [(ngModel)]="product.companyId" required name="company" class="form-control">
+	<option value="1">--Select--</option> 
+	<option *ngFor="let company of companies" value={{company.id}}>
+	    {{company.name}}
+    </option>
+</select>
 </div>
 <div class="form-group" [ngClass]="{'error':  newEventForm.controls.price?.invalid && newEventForm.controls.price?.touched}" >
 	<label> Price </label>
