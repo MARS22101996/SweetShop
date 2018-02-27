@@ -20,6 +20,7 @@
 	<td>{{p?.company | uppercase }}</td>
 	<td>{{p?.price  | currency: 'USD': true }}</td>
 	<td>
+		<a [routerLink]="['/product', p.id]" class="btn btn-sm btn-primary">Details</a>
 		<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
 		<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
 	</td>

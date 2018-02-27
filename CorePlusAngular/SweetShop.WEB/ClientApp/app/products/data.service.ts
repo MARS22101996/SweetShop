@@ -18,6 +18,10 @@ export class DataService {
 		return this.http.get(this.url + '/' + id);
 	}
 
+	getProductRawData(id: number) {
+		return this.http.get(this.url + '/raw/' + id);
+	}
+
 	createProduct(product: Product) {
 		return this.http.post(this.url, product, { observe: 'response' });
 	}

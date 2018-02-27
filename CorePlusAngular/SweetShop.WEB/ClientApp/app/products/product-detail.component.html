@@ -1,9 +1,29 @@
-﻿<div *ngIf="loaded">
-	<h2>Prodict {{product.id}}</h2>
-	<div>
-		<p><b>Name:</b> {{product.name}}</p>
-		<p><b>Manufacturer:</b> {{product.company}}</p>
-		<p><b>Price:</b> {{product.price}}</p>
-		<p><a routerLink="/" class="nav-link">Go to list of models</a></p>
+﻿<section class="page-section cta">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-9 mx-auto">
+				<div class="cta-inner text-center rounded">
+					<div *ngIf="loaded">
+						<h2 class="section-heading mb-5">
+							<span class="section-heading-upper">Product </span>
+							<span class="section-heading-lower">{{product.name}}</span>
+						</h2>
+						<ul class="list-unstyled list-hours mb-5 text-left mx-auto">						
+							<li class="list-unstyled-item list-hours-item d-flex">
+								Company
+							<span class="ml-auto">{{product.company}}</span>
+							</li>
+							<li class="list-unstyled-item list-hours-item d-flex">
+								Price
+							<span class="ml-auto">{{product.price | currency: 'USD': true }}</span>
+							</li>
+						    <li class="list-unstyled-item list-hours-item d-flex">
+							    {{product?.description}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
+</section>

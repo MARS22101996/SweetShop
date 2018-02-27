@@ -55,21 +55,14 @@ namespace SweetShop.DAL.Repositories
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _context.Set<Product>().Include(x=>x.Company);
+            return _context.Set<Product>().Include(x => x.Company);
         }
 
-        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeExpressions)
+        public Product GetProduct(int id)
         {
-            var dbSet = _context.Set<TEntity>();
-
-            IQueryable<TEntity> query = null;
-            foreach (var includeExpression in includeExpressions)
-            {
-                query = dbSet.Include(includeExpression);
-            }
-
-            return query ?? dbSet;
+            return _context.Set<Product>().Include(x => x.Company).FirstOrDefault(x => x.Id == id);
         }
+
         public TEntity Get(int id)
         {
             var entity = _context.Set<TEntity>().Find(id);

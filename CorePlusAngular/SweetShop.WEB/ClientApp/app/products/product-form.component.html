@@ -8,7 +8,7 @@
 	<label> Manufacturer </label>
 	<em *ngIf="newEventForm.controls.companyId?.invalid && (newEventForm.controls.companyId?.touched)">Required</em>
 	<select [(ngModel)]="product.companyId" required name="company" class="form-control">
-	<option value="1">--Select--</option> 
+	<!-- <option value="{{currentCompanyId}}"> {{currentCompanyName}} </option>  -->
 	<option *ngFor="let company of companies" value={{company.id}}>
 	    {{company.name}}
     </option>
@@ -18,5 +18,10 @@
 	<label> Price </label>
 	<em *ngIf="newEventForm.controls.price?.invalid && (newEventForm.controls.price?.touched)">Required</em>
 	<input  type="number" [(ngModel)]="product.price" name="price" min="0" max="99" required class="form-control" placeholder="product price..." />
+</div>
+<div class="form-group" [ngClass]="{'error': newEventForm.controls.description?.invalid && newEventForm.controls.description?.touched}" >
+	<label> Description </label>
+	<em *ngIf="newEventForm.controls.description?.invalid && (newEventForm.controls.description?.touched)"> Required </em>
+	<input type="text" [(ngModel)]="product.description" name="description" required class="form-control" placeholder="description ..."/>
 </div>
 </form>

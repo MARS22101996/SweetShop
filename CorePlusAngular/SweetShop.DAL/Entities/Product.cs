@@ -13,6 +13,8 @@ namespace SweetShop.DAL.Entities
 
         public decimal Price { get; set; }
 
+        public string Description { get; set; }
+
         public virtual Company Company { get; set; }
     }
 }

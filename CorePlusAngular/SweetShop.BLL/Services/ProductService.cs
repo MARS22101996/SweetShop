@@ -21,7 +21,7 @@ namespace SweetShop.BLL.Services
         }
         public IEnumerable<ProductDto> GetAll()
         {
-            var products = _unitOfWork.Products.GetAllProducts().ToList();
+            var products = _unitOfWork.Products.GetAllProducts();
 
             var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
 
@@ -30,7 +30,7 @@ namespace SweetShop.BLL.Services
 
         public ProductDto Get(int id)
         {
-            var product =  _unitOfWork.Products.Get(id);
+            var product =  _unitOfWork.Products.GetProduct(id);
 
             if (product == null)
             {

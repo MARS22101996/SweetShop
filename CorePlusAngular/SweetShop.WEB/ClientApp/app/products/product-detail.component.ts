@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from './data.service';
-import { Product } from './product';
+import { ProductView } from './product-view';
 
 @Component({
 	templateUrl: './product-detail.component.html',
@@ -10,7 +10,7 @@ import { Product } from './product';
 export class ProductDetailComponent implements OnInit {
 
 	id: number;
-	product: Product;
+	product: ProductView;
 	loaded: boolean = false;
 
 	constructor(private dataService: DataService, activeRoute: ActivatedRoute) {
@@ -20,6 +20,6 @@ export class ProductDetailComponent implements OnInit {
 	ngOnInit() {
 		if (this.id)
 			this.dataService.getProduct(this.id)
-				.subscribe((data: Product) => { this.product = data; this.loaded = true; });
+				.subscribe((data: ProductView) => { this.product = data; this.loaded = true; });
 	}
 }

@@ -19,12 +19,14 @@ export class ProductFormComponent {
     @Input() product: Product;
     companies: Company[];
 
-    constructor(private dataService: CompanyService)
-    { }
+    constructor(private dataService: CompanyService){        
+    }
 
     ngOnInit() {
         this.load();
-
+        if (this.product.companyId === undefined) {
+            this.product.companyId = 6;
+        }
     }
 
     load() {

@@ -10,6 +10,8 @@
 
         public decimal Price { get; set; }
 
+        public string Description { get; set; }
+
         public CompanyDto Company { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace SweetShop.DAL.Interfaces
 
         TEntity Get(int id);
 
+        Product GetProduct(int id);
+
         void Create(TEntity product);
 
         void Update(TEntity product);
