@@ -1,0 +1,26 @@
+<section class="page-section cta">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-9 mx-auto">
+				<div class="cta-inner text-center rounded">
+					<div *ngIf="loaded">
+						<h2 class="section-heading mb-5">
+							<span class="section-heading-upper">Company </span>
+							<span class="section-heading-lower">{{company.name}}</span>
+						</h2>
+						<ul class="list-unstyled list-hours mb-5 text-left mx-auto">						
+							<li class="list-unstyled-item list-hours-item d-flex">
+								Home page
+							<span class="ml-auto">{{company.homePage}}</span>
+							</li>
+						    <li class="list-unstyled-item list-hours-item d-flex">
+							    {{company?.description}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<product-list [companyId]="id" ></product-list>

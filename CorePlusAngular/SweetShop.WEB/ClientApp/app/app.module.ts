@@ -18,6 +18,7 @@ import { CompanyService } from "./company/company.service";
 import { CompanyCreateComponent } from "./company/company-create.component";
 import { CompanyFormComponent } from "./company/company-form.component";
 import { CompanyEditComponent } from "./company/company-edit.component";
+import { CompanyDetailComponent } from "./company/company-detail.component";
 
 
 const appRoutes: Routes = [
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     { path: 'products', component: ProductListComponent },
     { path: 'companies/create', component: CompanyCreateComponent },
     { path: 'companies', component: CompanyListComponent },
+    { path: 'company/:id', component: CompanyDetailComponent },
     { path: 'product/:id', component: ProductDetailComponent }, 
     { path: 'company/edit/:id', component: CompanyEditComponent },
     { path: 'create', component: ProductCreateComponent },
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
         CompanyListComponent,
         CompanyCreateComponent,
         CompanyFormComponent,
-        CompanyEditComponent
+        CompanyEditComponent,
+        CompanyDetailComponent
     ],
     providers: [DataService,
                 CompanyService],

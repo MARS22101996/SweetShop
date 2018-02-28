@@ -1,27 +1,41 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from './data.service';
 
 import { ProductView } from "./product-view";
 
 @Component({
+    selector: 'product-list',
     templateUrl: './product-list.component.html',
     providers: [DataService]
 })
 export class ProductListComponent implements OnInit {
 
+    @Input() companyId: number;
     products: ProductView[];
     sortBy: string;
     constructor(private dataService: DataService) { }
 
     ngOnInit() {
-        this.load();
+        if (this.companyId !== undefined) {
+            console.log(this.companyId)
+            this.loadByCompany();
+        }
+        else {
+            this.load();
+            console.log(this.companyId)
+        }
     }
 
     load() {
         this.dataService.getProducts().subscribe((data: ProductView[]) => this.products = data);
     }
 
-    delete(id: number) {
+    loadByCompany() {
+        this.dataService.getProductsByCompany(this.companyId).subscribe((data: ProductView[]) => this.products = data);
+    }
+
+
+    delete(id: number) {     
         this.dataService.deleteProduct(id).subscribe(data => this.load());
     }
 

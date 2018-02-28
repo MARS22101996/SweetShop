@@ -7,11 +7,7 @@ namespace SweetShop.DAL.Interfaces
     {
         IEnumerable<TEntity> GetAll();
 
-        IEnumerable<Product> GetAllProducts();
-
         TEntity Get(int id);
-
-        Product GetProduct(int id);
 
         void Create(TEntity product);
 

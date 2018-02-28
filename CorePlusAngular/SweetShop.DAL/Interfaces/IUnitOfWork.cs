@@ -4,7 +4,7 @@ namespace SweetShop.DAL.Interfaces
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<Product> Products { get; }
+        IProductRepository Products { get; }
 
         IGenericRepository<Company> Companies { get; }
 

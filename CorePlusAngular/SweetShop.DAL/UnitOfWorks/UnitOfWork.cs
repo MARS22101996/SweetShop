@@ -8,7 +8,7 @@ namespace SweetShop.DAL.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly Lazy<IGenericRepository<Product>> _productRepository;
+        private readonly Lazy<IProductRepository> _productRepository;
         private readonly Lazy<IGenericRepository<Company>> _companyRepository;
         private readonly ApplicationContext _db;
         private bool _disposed = false;
@@ -16,11 +16,11 @@ namespace SweetShop.DAL.UnitOfWorks
         public UnitOfWork(ApplicationContext context)
         {
             _db = context;
-            _productRepository = new Lazy<IGenericRepository<Product>>(() => new GenericRepository<Product>(_db));
+            _productRepository = new Lazy<IProductRepository>(() => new ProductRepository(_db));
             _companyRepository = new Lazy<IGenericRepository<Company>>(() => new GenericRepository<Company>(_db));
         }
 
-        public IGenericRepository<Product> Products => _productRepository.Value;
+        public IProductRepository Products => _productRepository.Value;
 
         public IGenericRepository<Company> Companies => _companyRepository.Value;
 

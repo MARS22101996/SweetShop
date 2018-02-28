@@ -11,6 +11,8 @@ namespace SweetShop.BLL.Interfaces
 
         ProductDto Get(int id);
 
+        IEnumerable<ProductDto> GetFilteredByCompany(int id);
+
         void Create(ProductDto productDto);
 
         void Update(ProductDto productDto);

@@ -9,7 +9,7 @@ namespace SweetShop.DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly ApplicationContext _context;
+        protected readonly ApplicationContext _context;
 
         public GenericRepository(ApplicationContext context)
         {
@@ -49,16 +49,6 @@ namespace SweetShop.DAL.Repositories
             //}
 
             return _context.Set<TEntity>();
-        }
-
-        public IEnumerable<Product> GetAllProducts()
-        {
-            return _context.Set<Product>().Include(x => x.Company);
-        }
-
-        public Product GetProduct(int id)
-        {
-            return _context.Set<Product>().Include(x => x.Company).FirstOrDefault(x => x.Id == id);
         }
 
         public TEntity Get(int id)

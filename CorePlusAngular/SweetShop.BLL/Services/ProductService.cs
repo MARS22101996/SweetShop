@@ -28,6 +28,15 @@ namespace SweetShop.BLL.Services
             return productDtos;
         }
 
+        public IEnumerable<ProductDto> GetFilteredByCompany(int id)
+        {
+            var products = _unitOfWork.Products.Get(x => x.CompanyId == id);
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
+
+            return productDtos;
+        }
+
         public ProductDto Get(int id)
         {
             var product =  _unitOfWork.Products.GetProduct(id);

@@ -13,6 +13,7 @@ h4,
 h5,
 h6 {
   font-family: 'Raleway';
+  text-align: center;
 }
 
 p {
@@ -256,4 +257,10 @@ p {
 
 .products {
 	color: white !important;
+}
+
+.products-items {
+	margin-top: 5%;
+	background-color: rgba(249,240,229, 0.2) !important;
+	border-radius: 20px;
 }

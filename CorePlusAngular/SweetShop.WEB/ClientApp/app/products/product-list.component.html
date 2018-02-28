@@ -1,15 +1,15 @@
-﻿<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
+﻿<!-- <h1 class="site-heading-upper text-primary mb-3">List of products</h1>
 <button [routerLink]="['/create']" class="btn btn-sm btn-danger">Create</button>
 <div class="btn-group btn-group-sm">
 	<button class="intro-button mx-auto" [class.btn-primary]="sortBy==='name'" (click)="sortByName()">By name </button>
-	<button class="intro-button mx-auto" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
+	<button *ngIf="!companyId" class="intro-button mx-auto" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
 	<button class="intro-button mx-auto" [class.btn-primary]="sortBy==='price'" (click)="sortByPrice()">By Price</button>
 </div>
 <table class="table table-striped products">
 <thead>
 <tr>
 	<td>Name</td>
-	<td>Manufacturer</td>
+	<td *ngIf="!companyId" >Manufacturer</td>
 	<td>Price</td>
 	<td></td>
 </tr>
@@ -17,7 +17,7 @@
 <tbody>
 <tr *ngFor="let p of products">
 	<td>{{p?.name}}</td>
-	<td>{{p?.company | uppercase }}</td>
+	<td *ngIf="!companyId" >{{p?.company | uppercase }}</td>
 	<td>{{p?.price  | currency: 'USD': true }}</td>
 	<td>
 		<a [routerLink]="['/product', p.id]" class="btn btn-sm btn-primary">Details</a>
@@ -26,4 +26,48 @@
 	</td>
 </tr>
 </tbody>
-</table>
+</table> -->
+<div class="products-items" >
+	<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
+	<button [routerLink]="['/create']" class="btn btn-sm btn-primary">Create</button>
+	<div class="btn-group btn-group-sm">
+		<button class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='name'" (click)="sortByName()">By name </button>
+		<button *ngIf="!companyId" class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
+		<button class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='price'" (click)="sortByPrice()">By Price</button>
+	</div>
+	<br>
+	<div class="layout">
+		<section class="inner">
+			<ul class="grid">
+				<li *ngFor="let p of products" class="grid-tile">
+					<div class="item">
+						<div [routerLink]="['/product', p.id]" class="item-img" style="background-image: url('https://sallysbakingaddiction.com/wp-content/uploads/2017/06/moist-chocolate-cupcakes-5.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+						<div class="item-pnl">
+							<div class="pnl-wrapper">
+								<div class="pnl-description">
+									<span class="pnl-label">{{p?.name}}</span>
+									<span class="pnl-price">{{p?.price  | currency: 'USD': true }}</span>
+								</div>
+								<div class="pnl-favorites">
+
+									<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
+
+								</div>
+								<div class="pnl-favorites">
+
+									<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
+
+								</div>
+								<div class="pnl-favorites">
+									<div class="pnl-ic-wrapper">
+										<span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</section>
+	</div>
+</div>

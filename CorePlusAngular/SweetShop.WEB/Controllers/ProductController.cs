@@ -40,6 +40,15 @@ namespace SweetShop.WEB.Controllers
             return productApiModel;
         }
 
+        [HttpGet("company/{id}")]
+        public IEnumerable<ProductViewApiModel> GetForCompany(int id)
+        {
+            var productDtos = _productService.GetFilteredByCompany(id);
+            var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos);
+
+            return productApiModels;
+        }
+
         [HttpGet("raw/{id}")]
         public ProductApiModel Get(int id)
         {
