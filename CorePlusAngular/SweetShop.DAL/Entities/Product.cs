@@ -4,6 +4,10 @@ namespace SweetShop.DAL.Entities
 {
     public class Product
     {
+        public Product()
+        {
+            Likes = 0;
+        }
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -14,6 +18,8 @@ namespace SweetShop.DAL.Entities
         public decimal Price { get; set; }
 
         public string Description { get; set; }
+
+        public int Likes { get; set; }
 
         public virtual Company Company { get; set; }
     }

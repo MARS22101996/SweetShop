@@ -2,6 +2,8 @@
 import { DataService } from './data.service';
 
 import { ProductView } from "./product-view";
+import { Router } from "@angular/router";
+import { Product } from "./product";
 
 @Component({
     selector: 'product-list',
@@ -13,16 +15,15 @@ export class ProductListComponent implements OnInit {
     @Input() companyId: number;
     products: ProductView[];
     sortBy: string;
-    constructor(private dataService: DataService) { }
+    productForLike: Product;
+    constructor(private dataService: DataService, private router: Router) { }
 
     ngOnInit() {
         if (this.companyId !== undefined) {
-            console.log(this.companyId)
             this.loadByCompany();
         }
         else {
             this.load();
-            console.log(this.companyId)
         }
     }
 
@@ -52,6 +53,22 @@ export class ProductListComponent implements OnInit {
     sortByPrice() {
         this.products.sort(sortByPriceExpression)
         this.sortBy='price'
+    }
+
+    addLike(p: ProductView)
+    {  
+        console.log(p);
+        this.productForLike = new Product();
+        this.productForLike.id = p.id;
+        this.productForLike.companyId = p.companyId;
+        this.productForLike.description = p.description;
+        this.productForLike.name = p.name;
+        this.productForLike.price = p.price;
+        this.productForLike.likes = p.likes + 1;
+
+       this.dataService.updateProduct(this.productForLike)
+             .subscribe(data => this.load()); 
+        
     }
 }
 

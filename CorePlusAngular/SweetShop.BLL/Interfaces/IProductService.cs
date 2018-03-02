@@ -15,6 +15,8 @@ namespace SweetShop.BLL.Interfaces
 
         void Create(ProductDto productDto);
 
+        void AddLike(int id);
+
         void Update(ProductDto productDto);
 
         void Delete(int id);

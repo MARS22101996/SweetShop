@@ -29,10 +29,12 @@ export class DataService {
 	createProduct(product: Product) {
 		return this.http.post(this.url, product, { observe: 'response' });
 	}
+
 	updateProduct(product: Product) {
 
 		return this.http.put(this.url + '/' + product.id, product, { observe: 'response', responseType: 'text' });
 	}
+
 	deleteProduct(id: number) {
 		return this.http.delete(this.url + '/' + id);
 	}

@@ -12,6 +12,8 @@
 
         public string Description { get; set; }
 
+        public int Likes { get; set; }
+
         public CompanyDto Company { get; set; }
     }
 }

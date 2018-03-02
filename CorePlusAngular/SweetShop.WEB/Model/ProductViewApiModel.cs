@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SweetShop.WEB.Model
+﻿namespace SweetShop.WEB.Model
 {
     public class ProductViewApiModel
     {
@@ -13,8 +8,12 @@ namespace SweetShop.WEB.Model
 
         public string Company { get; set; }
 
+        public int CompanyId { get; set; }
+
         public string Description { get; set; }
 
         public decimal Price { get; set; }
+
+        public int Likes { get; set; }
     }
 }
