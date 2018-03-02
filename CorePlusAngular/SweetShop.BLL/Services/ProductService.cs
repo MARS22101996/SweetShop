@@ -85,5 +85,18 @@ namespace SweetShop.BLL.Services
 
             _unitOfWork.Save();
         }
+
+        public IEnumerable<StatisticByProductsDto> GetStatisticByProducts()
+        {
+            var statistic = _unitOfWork.Products.GetAll()
+                .GroupBy(grp => new {grp.Name})
+                .Select(result => new StatisticByProductsDto()
+                {
+                    Name = result.Key.Name,
+                    Likes = result.Sum(x => x.Likes)
+                });
+
+            return statistic;
+        }
     }
 }

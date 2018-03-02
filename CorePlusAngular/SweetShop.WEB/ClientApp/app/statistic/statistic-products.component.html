@@ -1,0 +1,15 @@
+<table class="table table-striped products">
+<thead>
+<tr>
+	<td>Name</td>
+	<td>Like</td>
+	<td></td>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let p of statistic">
+	<td>{{p?.name}}</td>
+	<td>{{p?.likes }}</td>
+</tr>
+</tbody>
+</table>

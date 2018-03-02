@@ -19,6 +19,7 @@ import { CompanyCreateComponent } from "./company/company-create.component";
 import { CompanyFormComponent } from "./company/company-form.component";
 import { CompanyEditComponent } from "./company/company-edit.component";
 import { CompanyDetailComponent } from "./company/company-detail.component";
+import { StatisticProductsComponent } from "./statistic/statistic-products.component";
 
 
 const appRoutes: Routes = [
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     { path: 'company/edit/:id', component: CompanyEditComponent },
     { path: 'create', component: ProductCreateComponent },
     { path: 'edit/:id', component: ProductEditComponent },
+    { path: 'statistic', component: StatisticProductsComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
@@ -52,7 +54,8 @@ const appRoutes: Routes = [
         CompanyCreateComponent,
         CompanyFormComponent,
         CompanyEditComponent,
-        CompanyDetailComponent
+        CompanyDetailComponent,
+        StatisticProductsComponent
     ],
     providers: [DataService,
                 CompanyService],

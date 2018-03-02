@@ -19,6 +19,11 @@ export class ProductListComponent implements OnInit {
     constructor(private dataService: DataService, private router: Router) { }
 
     ngOnInit() {
+        this.chooseLoader()
+    }
+    
+    chooseLoader()
+    {
         if (this.companyId !== undefined) {
             this.loadByCompany();
         }
@@ -26,6 +31,7 @@ export class ProductListComponent implements OnInit {
             this.load();
         }
     }
+
 
     load() {
         this.dataService.getProducts().subscribe((data: ProductView[]) => this.products = data);
@@ -57,7 +63,6 @@ export class ProductListComponent implements OnInit {
 
     addLike(p: ProductView)
     {  
-        console.log(p);
         this.productForLike = new Product();
         this.productForLike.id = p.id;
         this.productForLike.companyId = p.companyId;
@@ -67,7 +72,7 @@ export class ProductListComponent implements OnInit {
         this.productForLike.likes = p.likes + 1;
 
        this.dataService.updateProduct(this.productForLike)
-             .subscribe(data => this.load()); 
+             .subscribe(data => this.chooseLoader()); 
         
     }
 }
