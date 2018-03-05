@@ -53,9 +53,18 @@ namespace SweetShop.WEB.Controllers
         public IEnumerable<StatisticByProductsApiModel> GetStatisticByProducts()
         {
             var productDtos = _productService.GetStatisticByProducts();
-            var productApiModels = _mapper.Map<IEnumerable<StatisticByProductsApiModel>>(productDtos);
+            var statisticApiModels = _mapper.Map<IEnumerable<StatisticByProductsApiModel>>(productDtos);
 
-            return productApiModels;
+            return statisticApiModels;
+        }
+
+        [HttpGet("statistic/company")]
+        public IEnumerable<StatisticByProductsApiModel> GetStatisticByCompany()
+        {
+            var productDtos = _productService.GetStatisticByCompany();
+            var statisticApiModels = _mapper.Map<IEnumerable<StatisticByProductsApiModel>>(productDtos);
+
+            return statisticApiModels;
         }
 
         [HttpGet("raw/{id}")]

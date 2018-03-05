@@ -20,5 +20,7 @@ namespace SweetShop.BLL.Interfaces
         void Delete(int id);
 
         IEnumerable<StatisticByProductsDto> GetStatisticByProducts();
+
+        IEnumerable<StatisticByProductsDto> GetStatisticByCompany();
     }
 }

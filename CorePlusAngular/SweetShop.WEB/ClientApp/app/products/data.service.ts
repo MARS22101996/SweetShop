@@ -22,6 +22,11 @@ export class DataService {
 		return this.http.get(this.url + '/statistic');
 	}
 
+	getStatisticByCompany() {
+		return this.http.get(this.url + '/statistic/company');
+	}
+
+
 	getProduct(id: number) {
 		return this.http.get(this.url + '/' + id);
 	}

@@ -1,33 +1,4 @@
-﻿<!-- <h1 class="site-heading-upper text-primary mb-3">List of products</h1>
-<button [routerLink]="['/create']" class="btn btn-sm btn-danger">Create</button>
-<div class="btn-group btn-group-sm">
-	<button class="intro-button mx-auto" [class.btn-primary]="sortBy==='name'" (click)="sortByName()">By name </button>
-	<button *ngIf="!companyId" class="intro-button mx-auto" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
-	<button class="intro-button mx-auto" [class.btn-primary]="sortBy==='price'" (click)="sortByPrice()">By Price</button>
-</div>
-<table class="table table-striped products">
-<thead>
-<tr>
-	<td>Name</td>
-	<td *ngIf="!companyId" >Manufacturer</td>
-	<td>Price</td>
-	<td></td>
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let p of products">
-	<td>{{p?.name}}</td>
-	<td *ngIf="!companyId" >{{p?.company | uppercase }}</td>
-	<td>{{p?.price  | currency: 'USD': true }}</td>
-	<td>
-		<a [routerLink]="['/product', p.id]" class="btn btn-sm btn-primary">Details</a>
-		<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
-		<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
-	</td>
-</tr>
-</tbody>
-</table> -->
-<div class="products-items" >
+﻿<div class="products-items" >
 	<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
 	<button [routerLink]="['/create']" class="btn btn-sm btn-primary">Create</button>
 	<div class="btn-group btn-group-sm">

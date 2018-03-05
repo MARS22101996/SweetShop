@@ -2,8 +2,8 @@
 {
     public class StatisticByProductsApiModel
     {
-        public string Name { get; set; }
+        public string Label { get; set; }
 
-        public int Likes { get; set; }
+        public int Value { get; set; }
     }
 }

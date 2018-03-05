@@ -1,15 +1,25 @@
+<h1 class="site-heading-upper text-primary mb-3">{{chartData.caption}}</h1>
 <table class="table table-striped products">
-<thead>
-<tr>
-	<td>Name</td>
-	<td>Like</td>
-	<td></td>
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let p of statistic">
-	<td>{{p?.name}}</td>
-	<td>{{p?.likes }}</td>
-</tr>
-</tbody>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Likes</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let p of statistic">
+			<td>{{p?.label}}</td>
+			<td>{{p?.value }}</td>
+		</tr>
+	</tbody>
 </table>
+<h1>
+	{{title}}
+</h1>
+<div class="btn-group btn-group-sm">
+	<button class="btn intro-button mx-auto" [class.btn-primary]="statisticBy==='product'" (click)="statisticByProducts()">By products </button>
+	<button class="btn intro-button mx-auto" [class.btn-primary]="statisticBy==='company'" (click)="statisticByCompany()">By company</button>
+</div>
+<mat-card>    
+    <fusioncharts [id]="id" [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource"></fusioncharts>  
+</mat-card>

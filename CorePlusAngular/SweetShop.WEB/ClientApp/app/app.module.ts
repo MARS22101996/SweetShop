@@ -20,7 +20,15 @@ import { CompanyFormComponent } from "./company/company-form.component";
 import { CompanyEditComponent } from "./company/company-edit.component";
 import { CompanyDetailComponent } from "./company/company-detail.component";
 import { StatisticProductsComponent } from "./statistic/statistic-products.component";
+// import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FintTheme from 'fusioncharts/themes/fusioncharts.theme.fint';
+import { FusionChartsModule } from 'angular4-fusioncharts';
+import { MatCardModule, MatToolbarModule, MatToolbar, MatButtonModule, MatButton, MatMenuModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
 
+FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 const appRoutes: Routes = [
     { path: 'home', component: HomePageComponent },
@@ -39,7 +47,18 @@ const appRoutes: Routes = [
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule.forRoot(appRoutes),
+        MatCardModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatMenuModule,
+        FusionChartsModule,
+        BrowserAnimationsModule],
     declarations: [
         AppComponent,
         ProductListComponent,

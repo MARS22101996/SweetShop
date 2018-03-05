@@ -1,5 +1,5 @@
 export class StatisticByProducts {
 	constructor(
-		public name?: string,
-		public likes?: number) { }
+		public label?: string,
+		public value?: number) { }
 }
