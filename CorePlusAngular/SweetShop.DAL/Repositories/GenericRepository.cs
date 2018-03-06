@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using SweetShop.DAL.Context;
-using SweetShop.DAL.Entities;
 using SweetShop.DAL.Interfaces;
 
 namespace SweetShop.DAL.Repositories

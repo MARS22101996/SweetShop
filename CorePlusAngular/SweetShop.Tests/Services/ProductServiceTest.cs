@@ -1,0 +1,305 @@
+﻿using SweetShop.BLL.Interfaces;
+using SweetShop.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using Moq;
+using NUnit.Framework;
+using SweetShop.BLL.Dto;
+using SweetShop.BLL.Infrastructure.Exceptions;
+using SweetShop.BLL.Services;
+using SweetShop.DAL.Entities;
+
+namespace SweetShop.Tests.Services
+{
+    [TestFixture]
+    public class ProductServiceTest : TestBase
+    {
+        private readonly IProductService _sut;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+
+        public ProductServiceTest()
+        {
+            var mapper = GetMapper();
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _sut = new ProductService(_unitOfWorkMock.Object, mapper);
+        }
+
+        [Test]
+        public void Get_ReturnsCorrectProduct_WhenProductExists()
+        {
+            var product = new Product {Id = 1};
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetProduct(product.Id))
+                .Returns(product);
+
+            var result = _sut.Get(product.Id);
+
+            Assert.AreEqual(product.Id, result.Id);
+        }
+
+        [Test]
+        public void Get_ThrowsEntityNotFoundException_WhenProductIsNotExisted()
+        {
+            const int productId = 1;
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetProduct(productId))
+                .Returns((Product) null);
+
+            Assert.Throws<EntityNotFoundException>(() => _sut.Get(productId));
+        }
+
+        [Test]
+        public void GetAll_ReturnsCorrectProduct_WhenProductsAreExisted()
+        {
+            var products = new List<Product> {new Product {Id = 1}};
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAllProducts()).Returns(products);
+
+            var result = _sut.GetAll();
+
+            Assert.AreEqual(products.Count, result.Count());
+        }
+
+        [Test]
+        public void GetAll_ReturnsEmptyList_WhenProductsAreNotExisted()
+        {
+            var products = new List<Product>();
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAllProducts()).Returns(products);
+
+            var result = _sut.GetAll();
+
+            Assert.AreEqual(products.Count, result.Count());
+        }
+
+        [Test]
+        public void GetFilteredByCompany_ReturnsFilteredProducts_WhenProductsAreExisted()
+        {
+            const int companyId = 1;
+
+            var products = new List<Product> {new Product {Id = 1}};
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<Expression<Func<Product, bool>>>()))
+                .Returns(products);
+
+            var result = _sut.GetFilteredByCompany(companyId);
+
+            Assert.AreEqual(products.Count, result.Count());
+        }
+
+        [Test]
+        public void GetFilteredByCompany_ReturnsEmptyList_WhenProductsAreNotExisted()
+        {
+            const int companyId = 1;
+
+            var products = new List<Product>();
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<Expression<Func<Product, bool>>>()))
+                .Returns(new List<Product>());
+
+            var result = _sut.GetFilteredByCompany(companyId);
+
+            Assert.AreEqual(products.Count, result.Count());
+        }
+
+        [Test]
+        public void Create_CallsCreateFromDal_WhenProductIsValid()
+        {
+            var model = new ProductDto {Id = 1, CompanyId = 1};
+
+            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()));
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Companies.Get(model.CompanyId))
+                .Returns(new Company {Id = 1});
+
+            _sut.Create(model);
+
+            _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()), Times.Once);
+        }
+
+        [Test]
+        public void Create_ThrowsEntityNotFoundException_WhenCompanyIsNotExisted()
+        {
+            var model = new ProductDto {Id = 1, CompanyId = 1};
+
+            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()));
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Companies.Get(model.CompanyId))
+                .Returns((Company) null);
+
+            Assert.Throws<EntityNotFoundException>(() => _sut.Create(model));
+        }
+
+        [Test]
+        public void Create_ThrowsArgumentNullException_WhenProductIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => _sut.Create(null));
+        }
+
+        [Test]
+        public void Update_CallsUpdateFromDal_WhenProductIsValid()
+        {
+            var model = new ProductDto {Id = 1, CompanyId = 1};
+
+            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Update(It.IsAny<Product>()));
+
+            _sut.Update(model);
+
+            _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Update(It.IsAny<Product>()), Times.Once);
+        }
+
+        [Test]
+        public void Update_ThrowsArgumentNullException_WhenProductIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => _sut.Update(null));
+        }
+
+        [Test]
+        public void Delete_CallsDeleteMethod_WhenProductIsExisted()
+        {
+            var product = new Product {Id = 1};
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<int>()))
+                .Returns(product);
+
+            _unitOfWorkMock
+                .Setup(x => x.Products.Delete(It.IsAny<int>()));
+
+            _sut.Delete(product.Id);
+
+            _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Delete(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void DeleteAsync_ThrowsEntityNotFoundException_WhenProductIsNotExisted()
+        {
+            const int productId = 1;
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<int>()))
+                .Returns((Product) null);
+
+            Assert.Throws<EntityNotFoundException>(() => _sut.Delete(productId));
+        }
+
+        [Test]
+        public void GetStatisticByProducts_ReturnsCorrectStatistic_WhenProductsAreExisted()
+        {
+            const string name = "Chocolate";
+            const int expectedCount = 1;
+            const int expectedLikes = 3;
+
+            var products = new List<Product>
+            {
+                new Product {Id = 1, Name = name, Likes = 1},
+                new Product {Id = 2, Name = name, Likes = 2}
+            };
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(products);
+
+            var result = _sut.GetStatisticByProducts().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+            Assert.AreEqual(name, result.First().Name);
+            Assert.AreEqual(expectedLikes, result.First().Likes);
+        }
+
+        [Test]
+        public void GetStatisticByProducts_ReturnsEmptyList_WhenProductsAreNotExisted()
+        {
+            const int expectedCount = 0;
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(new List<Product>());
+
+            var result = _sut.GetStatisticByProducts().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+        }
+
+        [Test]
+        public void GetStatisticByCompany_ReturnsEmptyList_WhenProductsAreNotExisted()
+        {
+            const int expectedCount = 0;
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(new List<Product>());
+
+            var result = _sut.GetStatisticByCompany().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+        }
+
+        [Test]
+        public void GetStatisticByCompany_ReturnsEmptyList_WhenCompaniesAreNotExisted()
+        {
+            const int expectedCount = 0;
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Companies.GetAll()).Returns(new List<Company>());
+
+            var result = _sut.GetStatisticByCompany().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+        }
+
+        [Test]
+        public void GetStatisticByCompany_ReturnsEmptyList_WhenCompaniesAndProductsAreNotExisted()
+        {
+            const int expectedCount = 0;
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(new List<Product>());
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Companies.GetAll()).Returns(new List<Company>());
+
+            var result = _sut.GetStatisticByCompany().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+        }
+
+        [Test]
+        public void GetStatisticByCompany_ReturnsCorrectStatistic_WhenProductsAndCompaniesAreExisted()
+        {
+            const string name = "Roshen";
+            const int expectedCount = 1;
+            const int expectedLikes = 3;
+
+            var products = new List<Product>
+            {
+                new Product {Id = 1, Likes = 1, CompanyId = 1},
+                new Product {Id = 2, Likes = 2, CompanyId = 1}
+            };
+
+            var companies = new List<Company>
+            {
+                new Company {Id = 1, Name = name},
+                new Company {Id = 2, Name = name}
+            };
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(products);
+
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Companies.GetAll()).Returns(companies);
+
+            var result = _sut.GetStatisticByCompany().ToList();
+
+            Assert.AreEqual(expectedCount, result.Count);
+            Assert.AreEqual(name, result.First().Name);
+            Assert.AreEqual(expectedLikes, result.First().Likes);
+        }
+    }
+}

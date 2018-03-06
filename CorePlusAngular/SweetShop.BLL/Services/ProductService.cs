@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using SweetShop.BLL.Dto;
@@ -52,11 +53,18 @@ namespace SweetShop.BLL.Services
 
         public void Create(ProductDto productDto)
         {
+            if (productDto == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var product = _mapper.Map<Product>(productDto);
 
             var company = _unitOfWork.Companies.Get(product.CompanyId);
 
-            product.Company = company;
+            product.Company =
+                company ?? throw new EntityNotFoundException(
+                    $"Company with such id doesn't exist. Id: {product.CompanyId}");
 
             _unitOfWork.Products.Create(product);
 
@@ -65,6 +73,11 @@ namespace SweetShop.BLL.Services
 
         public void Update(ProductDto productDto)
         {
+            if (productDto == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var product = _mapper.Map<Product>(productDto);
 
             _unitOfWork.Products.Update(product);
@@ -90,7 +103,7 @@ namespace SweetShop.BLL.Services
         {
             var statistic = _unitOfWork.Products.GetAll()
                 .GroupBy(grp => new {grp.Name})
-                .Select(result => new StatisticByProductsDto()
+                .Select(result => new StatisticByProductsDto
                 {
                     Name = result.Key.Name,
                     Likes = result.Sum(x => x.Likes)
@@ -102,10 +115,12 @@ namespace SweetShop.BLL.Services
         public IEnumerable<StatisticByProductsDto> GetStatisticByCompany()
         {
             var statistic = _unitOfWork.Products.GetAll()
-                .Join(_unitOfWork.Companies.GetAll(), product => product.CompanyId, company => company.Id,
+                .Join(_unitOfWork.Companies.GetAll(),
+                    product => product.CompanyId,
+                    company => company.Id,
                     (product, company) => new {company, product})
                 .GroupBy(grp => new {grp.company.Name})
-                .Select(result => new StatisticByProductsDto()
+                .Select(result => new StatisticByProductsDto
                 {
                     Name = result.Key.Name,
                     Likes = result.Sum(x => x.product.Likes)
