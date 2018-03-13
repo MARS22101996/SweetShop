@@ -24,15 +24,21 @@ export class StatisticProductsComponent implements OnInit {
         "slicingdistance": "25",
         "showpercentvalues": "1",
         "showpercentintooltip": "1",
-        "bgColor": "EEEEEE,CCCCCC",
-        "bgratio": "60,40",
-        "bgAlpha": "20,80",
-        "bgAngle": "180",
+        // "bgColor": "EEEEEE,CCCCCC",
+        // "bgratio": "60,40",
+        // "bgAlpha": "0,0",
+        // "bgAngle": "180",
         "plottooltext": "Product: $label Total likes : $datavalue",
         "borderColor": "#666666",
         "borderThickness": "4",
         "borderAlpha": "50",
         "theme": "carbon",
+        "canvasBgAlpha": "0",
+        //Background image properties
+        "bgImage": "https://foodimentaryguy.files.wordpress.com/2016/12/chocolate.jpg",
+        //Background image transparency 
+        "bgImageAlpha": "50",
+        "bgImageDisplayMode": "stretch"
     };
     statistic: StatisticByProducts[];
     constructor(private dataService: DataService) {
