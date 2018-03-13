@@ -20,31 +20,39 @@ import { CompanyFormComponent } from "./company/company-form.component";
 import { CompanyEditComponent } from "./company/company-edit.component";
 import { CompanyDetailComponent } from "./company/company-detail.component";
 import { StatisticProductsComponent } from "./statistic/statistic-products.component";
-// import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FintTheme from 'fusioncharts/themes/fusioncharts.theme.fint';
 import { FusionChartsModule } from 'angular4-fusioncharts';
 import { MatCardModule, MatToolbarModule, MatToolbar, MatButtonModule, MatButton, MatMenuModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginFormComponent } from "./account/login-form/login-form.component";
+import { RegistrationFormComponent } from "./account/registration-form/registration-form.component";
+import { UserService } from "./shared/services/user.service";
+import { SpinnerComponent } from "./spinner/spinner.component";
+import { ConfigService } from "./shared/utils/config.service";
+import { CommonModule }       from '@angular/common';
+import { HttpModule } from "@angular/http";
+import { AuthGuard } from "./auth.guard";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
 const appRoutes: Routes = [
     { path: 'home', component: HomePageComponent },
-    { path: 'products', component: ProductListComponent },
-    { path: 'companies/create', component: CompanyCreateComponent },
-    { path: 'companies', component: CompanyListComponent },
+    { path: 'products', component: ProductListComponent,  canActivate: [AuthGuard]},
+    { path: 'companies/create', component: CompanyCreateComponent},
+    { path: 'companies', component: CompanyListComponent, canActivate: [AuthGuard] },
     { path: 'company/:id', component: CompanyDetailComponent },
-    { path: 'product/:id', component: ProductDetailComponent }, 
+    { path: 'product/:id', component: ProductDetailComponent },
     { path: 'company/edit/:id', component: CompanyEditComponent },
     { path: 'create', component: ProductCreateComponent },
     { path: 'edit/:id', component: ProductEditComponent },
-    { path: 'statistic', component: StatisticProductsComponent },
+    { path: 'statistic', component: StatisticProductsComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginFormComponent },
+    { path: 'register', component: RegistrationFormComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
-
 
 @NgModule({
     imports: [
@@ -52,13 +60,15 @@ const appRoutes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        HttpModule,
         RouterModule.forRoot(appRoutes),
         MatCardModule,
         MatToolbarModule,
         MatButtonModule,
         MatMenuModule,
         FusionChartsModule,
-        BrowserAnimationsModule],
+        BrowserAnimationsModule,
+       CommonModule],
     declarations: [
         AppComponent,
         ProductListComponent,
@@ -74,10 +84,17 @@ const appRoutes: Routes = [
         CompanyFormComponent,
         CompanyEditComponent,
         CompanyDetailComponent,
-        StatisticProductsComponent
+        StatisticProductsComponent,
+        LoginFormComponent,
+        RegistrationFormComponent,
+        SpinnerComponent
     ],
-    providers: [DataService,
-                CompanyService],
+    providers: [
+        DataService,
+        CompanyService,
+        UserService,
+        ConfigService,
+        AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

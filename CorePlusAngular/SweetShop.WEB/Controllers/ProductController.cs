@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Interfaces;
@@ -8,15 +12,18 @@ using SweetShop.WEB.Model;
 
 namespace SweetShop.WEB.Controllers
 {
+    //[Authorize(Policy = "ApiUser")]
     [Route("api/products")]
     public class ProductController : Controller
     {
-
+        private readonly ClaimsPrincipal _caller;
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
 
-        public ProductController(IProductService productService,
-            IMapper mapper)
+        public ProductController(UserManager<AppUser> userManager,
+            IProductService productService,
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _productService = productService;

@@ -1,8 +1,11 @@
-﻿using System;
+﻿//using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Interfaces;
@@ -12,14 +15,17 @@ using SweetShop.WEB.Model;
 
 namespace SweetShop.WEB.Controllers
 {
-    [Route("api/companies")]
+   //[Authorize(Policy = "ApiUser")]
+   [Route("api/companies")]
     public class CompanyController : Controller
     {
         private readonly IMapper _mapper;
         private readonly ICompanyService _companyService;
 
-        public CompanyController(ICompanyService companyService,
-            IMapper mapper)
+        public CompanyController(UserManager<AppUser> userManager,
+            ICompanyService companyService,
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _companyService = companyService;

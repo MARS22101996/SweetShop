@@ -10,6 +10,7 @@
     "@angular/compiler": "~5.0.0",
     "@angular/core": "~5.0.0",
     "@angular/forms": "~5.0.0",
+    "@angular/http": "^5.2.8",
     "@angular/material": "^5.2.3",
     "@angular/platform-browser": "~5.0.0",
     "@angular/platform-browser-dynamic": "~5.0.0",
@@ -21,17 +22,18 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
+    "@angular/cli": "^1.7.3",
     "@types/node": "^8.0.47",
     "@types/webpack-env": "1.13.0",
-    "typescript": "^2.6.0",
-    "webpack": "^3.8.1",
-    "webpack-hot-middleware": "^2.20.0",
     "angular2-template-loader": "^0.6.2",
-    "awesome-typescript-loader": "^3.3.0",
-    "uglifyjs-webpack-plugin": "^1.0.1",
     "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^2.0.1",
+    "awesome-typescript-loader": "^3.3.0",
+    "html-loader": "^0.5.1",
     "raw-loader": "^0.5.1",
-    "html-loader": "^0.5.1"
+    "typescript": "^2.6.0",
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "webpack": "^3.8.1",
+    "webpack-hot-middleware": "^2.20.0"
   }
 }
