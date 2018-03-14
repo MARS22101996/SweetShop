@@ -7,9 +7,11 @@ import { BaseService } from "./base.service";
 
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
 
 // Add the RxJS Observable operators we need in this app.
 import '../rxjs-operators';
+import { UserDetails } from "../models/user.details";
 @Injectable()
 export class UserService extends BaseService {
 
@@ -22,7 +24,7 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: Http, private configService: ConfigService) {
+  constructor(private http: Http, private httpClient: HttpClient, private configService: ConfigService) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -85,6 +87,19 @@ export class UserService extends BaseService {
         return true;
       })
       .catch(this.handleError);
+  }
+
+  getCurrentUser(): Observable<UserDetails> {
+    if (this.loggedIn) {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('auth_token');
+      headers.append('Authorization', `Bearer ${authToken}`);
+      return this.http.get(this.baseUrl + '/auth/user', { headers })
+        .map(response => response.json())
+        .catch(this.handleError);
+    }
+    return null;
   }
 }
 

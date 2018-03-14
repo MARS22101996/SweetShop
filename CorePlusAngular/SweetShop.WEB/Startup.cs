@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +12,13 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using SweetShop.DAL.Context;
 using SweetShop.DAL.Entities;
 using SweetShop.WEB.Infrastructure.Auth;
 using SweetShop.WEB.Infrastructure.DI;
+using SweetShop.WEB.Model;
 
 namespace SweetShop.WEB
 {
@@ -44,8 +47,11 @@ namespace SweetShop.WEB
          services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(connectionString, b => b.MigrationsAssembly("SweetShop.DAL")));
 
-
          services.AddSingleton<IJwtFactory, JwtFactory>();
+
+         services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+         services.Configure<FacebookAuthSettings>(Configuration.GetSection(nameof(FacebookAuthSettings)));
 
          // Get options from app settings
          var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -57,7 +63,6 @@ namespace SweetShop.WEB
             options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
             options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
          });
-
 
          var tokenValidationParameters = new TokenValidationParameters
          {
@@ -74,6 +79,18 @@ namespace SweetShop.WEB
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
          };
+
+         services.AddAuthentication(options =>
+         {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+         }).AddJwtBearer(configureOptions =>
+         {
+            configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+            configureOptions.TokenValidationParameters = tokenValidationParameters;
+            configureOptions.SaveToken = true;
+         });
 
          // api user claim policy
          services.AddAuthorization(options =>

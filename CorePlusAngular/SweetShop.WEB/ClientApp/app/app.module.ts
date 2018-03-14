@@ -34,6 +34,7 @@ import { ConfigService } from "./shared/utils/config.service";
 import { CommonModule }       from '@angular/common';
 import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./auth.guard";
+import { FacebookLoginComponent } from "./account/facebook-login/facebook-login.component";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     { path: 'edit/:id', component: ProductEditComponent },
     { path: 'statistic', component: StatisticProductsComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginFormComponent },
+    { path: 'facebookLogin', component : FacebookLoginComponent},
     { path: 'register', component: RegistrationFormComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
@@ -87,7 +89,8 @@ const appRoutes: Routes = [
         StatisticProductsComponent,
         LoginFormComponent,
         RegistrationFormComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        FacebookLoginComponent
     ],
     providers: [
         DataService,

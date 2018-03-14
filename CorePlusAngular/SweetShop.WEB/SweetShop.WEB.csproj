@@ -54,6 +54,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\.gitkeep" />
+    <None Include="wwwroot\assets\util.js" />
     <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css.map" />
     <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css.map" />
     <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js" />
