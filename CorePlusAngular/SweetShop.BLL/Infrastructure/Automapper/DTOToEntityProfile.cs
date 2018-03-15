@@ -10,6 +10,7 @@ namespace SweetShop.BLL.Infrastructure.Automapper
         {
             CreateMap<ProductDto, Product>().ForSourceMember(x => x.Company, opt => opt.Ignore());
             CreateMap<CompanyDto, Company>();
-        }
+            CreateMap<ProductCustomerDto, ProductCustomer>();
+      }
     }
 }

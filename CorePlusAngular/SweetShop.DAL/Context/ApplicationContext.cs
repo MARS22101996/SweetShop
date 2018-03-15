@@ -4,17 +4,20 @@ using SweetShop.DAL.Entities;
 
 namespace SweetShop.DAL.Context
 {
-    public class ApplicationContext : IdentityDbContext<AppUser>
-  {
-        public ApplicationContext(DbContextOptions options)
-            : base(options)
-        {
-            
-        }
+   public class ApplicationContext : IdentityDbContext<AppUser>
+   {
+      public ApplicationContext(DbContextOptions options)
+         : base(options)
+      {
+      }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Company> Companies { get; set; }
+      public DbSet<Product> Products { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
-  }
+      public DbSet<Company> Companies { get; set; }
+
+      public DbSet<Customer> Customers { get; set; }
+
+      public DbSet<ProductCustomer> ProductCustomers { get; set; }
+   }
 }
+

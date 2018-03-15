@@ -5,22 +5,26 @@ using SweetShop.BLL.Dto;
 
 namespace SweetShop.BLL.Interfaces
 {
-    public interface IProductService
-    {
-        IEnumerable<ProductDto> GetAll();
+   public interface IProductService
+   {
+      IEnumerable<ProductDto> GetAll();
 
-        ProductDto Get(int id);
+      ProductDto Get(int id);
 
-        IEnumerable<ProductDto> GetFilteredByCompany(int id);
+      IEnumerable<ProductDto> GetFilteredByCompany(int id);
 
-        void Create(ProductDto productDto);
+      void Create(ProductDto productDto);
 
-        void Update(ProductDto productDto);
+      void Update(ProductDto productDto);
 
-        void Delete(int id);
+      void Delete(int id);
 
-        IEnumerable<StatisticByProductsDto> GetStatisticByProducts();
+      IEnumerable<StatisticByProductsDto> GetStatisticByProducts();
 
-        IEnumerable<StatisticByProductsDto> GetStatisticByCompany();
-    }
+      IEnumerable<StatisticByProductsDto> GetStatisticByCompany();
+
+      ProductDto ManageProductsLikes(ProductDto product, string userId);
+
+      void CreateProductCustomer(ProductCustomerDto productCustomerDto);
+   }
 }

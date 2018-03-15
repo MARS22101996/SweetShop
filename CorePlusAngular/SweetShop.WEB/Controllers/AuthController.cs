@@ -77,7 +77,7 @@ namespace SweetShop.WEB.Controllers
 
     [HttpGet("user")]
     public async Task<IActionResult> GetUser()
-    {
+   {
       var userId = _caller.Claims.Single(c => c.Type == "id");
 
       var customer = await _appDbContext.Customers.Include(c => c.Identity)

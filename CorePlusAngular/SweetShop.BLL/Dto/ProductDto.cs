@@ -1,4 +1,7 @@
-﻿namespace SweetShop.BLL.Dto
+﻿using System.Collections.Generic;
+using SweetShop.DAL.Entities;
+
+namespace SweetShop.BLL.Dto
 {
     public class ProductDto
     {
@@ -15,5 +18,5 @@
         public int Likes { get; set; }
 
         public CompanyDto Company { get; set; }
-    }
+   }
 }

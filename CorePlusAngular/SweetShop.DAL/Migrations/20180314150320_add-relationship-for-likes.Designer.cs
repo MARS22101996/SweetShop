@@ -11,9 +11,10 @@ using System;
 namespace SweetShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180314150320_add-relationship-for-likes")]
+    partial class addrelationshipforlikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,9 +217,13 @@ namespace SweetShop.DAL.Migrations
 
                     b.Property<string>("Location");
 
+                    b.Property<int?>("ProductId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Customers");
                 });
@@ -227,6 +232,8 @@ namespace SweetShop.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppUserId");
 
                     b.Property<int>("CompanyId");
 
@@ -240,27 +247,11 @@ namespace SweetShop.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("SweetShop.DAL.Entities.ProductCustomer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("CustomerId");
-
-                    b.Property<int?>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCustomers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -313,25 +304,22 @@ namespace SweetShop.DAL.Migrations
                     b.HasOne("SweetShop.DAL.Entities.AppUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
+
+                    b.HasOne("SweetShop.DAL.Entities.Product")
+                        .WithMany("Customers")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("SweetShop.DAL.Entities.Product", b =>
                 {
+                    b.HasOne("SweetShop.DAL.Entities.AppUser")
+                        .WithMany("Products")
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("SweetShop.DAL.Entities.Company", "Company")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SweetShop.DAL.Entities.ProductCustomer", b =>
-                {
-                    b.HasOne("SweetShop.DAL.Entities.Customer", "Customer")
-                        .WithMany("ProductCustomers")
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("SweetShop.DAL.Entities.Product", "Product")
-                        .WithMany("ProductCustomers")
-                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }

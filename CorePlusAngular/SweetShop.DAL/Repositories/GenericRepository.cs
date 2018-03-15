@@ -1,78 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using SweetShop.DAL.Context;
 using SweetShop.DAL.Interfaces;
 
 namespace SweetShop.DAL.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
-    {
-        protected readonly ApplicationContext _context;
+   public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+   {
+      protected readonly ApplicationContext _context;
 
-        public GenericRepository(ApplicationContext context)
-        {
-            _context = context;
-        }
+      public GenericRepository(ApplicationContext context)
+      {
+         _context = context;
+      }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            //if (!_context.Products.Any())
-            //{
-            //    var company = new Company { Name = "Roshen", Description = "Roshen", HomePage = "http://test"};
-            //    _context.Companies.Add(company);
+      public IEnumerable<TEntity> GetAll()
+      {
+         return _context.Set<TEntity>();
+      }
 
-            //    _context.Products.Add(new Product
-            //    {
-            //        Name = "Chocolate",
-            //        Company = company,
-            //        Price = 79900,
-            //        CompanyId = company.Id
-            //    });
-            //    _context.Products.Add(new Product
-            //    {
-            //        Name = "Cake",
-            //        Company = company,
-            //        Price = 49900,
-            //        CompanyId = company.Id
-            //    });
-            //    _context.Products.Add(new Product
-            //    {
-            //        Name = "Sweets",
-            //        Company = company,
-            //        Price = 52900,
-            //        CompanyId = company.Id
-            //    });
+      public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
+      {
+         return _context.Set<TEntity>().Where(predicate);
+      }
 
-            //    _context.SaveChanges();
-            //}
+      public TEntity Get(int id)
+      {
+         var entity = _context.Set<TEntity>().Find(id);
 
-            return _context.Set<TEntity>();
-        }
+         return entity;
+      }
 
-        public TEntity Get(int id)
-        {
-            var entity = _context.Set<TEntity>().Find(id);
+      public void Create(TEntity entity)
+      {
+         _context.Set<TEntity>().Add(entity);
+      }
 
-            return entity;
-        }
+      public void Update(TEntity entity)
+      {
+         _context.Set<TEntity>().Update(entity);
+      }
 
-        public void Create(TEntity entity)
-        {
-            _context.Set<TEntity>().Add(entity);
-        }
+      public void Delete(int id)
+      {
+         var entity = _context.Set<TEntity>().Find(id);
 
-        public void  Update(TEntity entity)
-        {
-            _context.Set<TEntity>().Update(entity);
-        }
-
-        public void Delete(int id)
-        {
-            var entity = _context.Set<TEntity>().Find(id);
-
-            if (entity != null)
-            {
-                _context.Set<TEntity>().Remove(entity);
-            }
-        }
-    }
+         if (entity != null)
+         {
+            _context.Set<TEntity>().Remove(entity);
+         }
+      }
+   }
 }

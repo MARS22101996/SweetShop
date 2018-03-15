@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SweetShop.DAL.Entities
 {
@@ -22,5 +23,7 @@ namespace SweetShop.DAL.Entities
         public int Likes { get; set; }
 
         public virtual Company Company { get; set; }
-    }
+
+        public ICollection<ProductCustomer> ProductCustomers { get; set; }
+   }
 }

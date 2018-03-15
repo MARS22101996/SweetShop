@@ -13,7 +13,5 @@ namespace SweetShop.DAL.Entities
         public string Description { get; set; }
 
         public string HomePage { get; set; }
-
-        public virtual ICollection<Product> Products { get; set; }
-    }
+   }
 }

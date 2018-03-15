@@ -22,12 +22,12 @@
        <li  *ngIf="!status" class="nav-item px-lg-4">
         <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Login</a>
       </li>
-      <li  *ngIf="!status" class="nav-item px-lg-4">
+      <!-- <li *ngIf="!status" class="nav-item px-lg-4">
         <a [routerLink]="['/facebookLogin']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Facebook login</a>
-      </li>
-      <li  *ngIf="!status" class="nav-item px-lg-4">
+      </li> -->
+        <li  *ngIf="!status" class="nav-item px-lg-4">
         <a [routerLink]="['/register']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Register</a>
-      </li>
+      </li>  
       <li  *ngIf="status"class="nav-item px-lg-4">
         <a (click)="logout()" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Logoff</a>
       </li>

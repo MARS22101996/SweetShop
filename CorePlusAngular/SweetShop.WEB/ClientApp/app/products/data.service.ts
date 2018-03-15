@@ -1,13 +1,17 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product';
+import { UserService } from "../shared/services/user.service";
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { BaseService } from "../shared/services/base.service";
 
 @Injectable()
-export class DataService {
+export class DataService extends BaseService {
 
 	private url = "/api/products";
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private httpClient: Http,  private user: UserService) {
+	    super();
 	}
 
 	getProducts() {
@@ -40,8 +44,17 @@ export class DataService {
 	}
 
 	updateProduct(product: Product) {
-
-		return this.http.put(this.url + '/' + product.id, product, { observe: 'response', responseType: 'text' });
+		if (this.user.isLoggedIn()) {
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			let authToken = localStorage.getItem('auth_token');
+			headers.append('Authorization', `Bearer ${authToken}`);
+			let options = new RequestOptions({ headers: headers });
+			return this.httpClient.put(this.url + '/' + product.id, product, options)
+				.map(res => true)
+				.catch(this.handleError);;
+		}
+		return null;
 	}
 
 	deleteProduct(id: number) {

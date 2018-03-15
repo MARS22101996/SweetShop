@@ -1,18 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using SweetShop.DAL.Entities;
 
 namespace SweetShop.DAL.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
+       IEnumerable<TEntity> GetAll();
 
-        TEntity Get(int id);
+       IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate);
 
-        void Create(TEntity product);
+       TEntity Get(int id);
 
-        void Update(TEntity product);
+       void Create(TEntity product);
 
-        void Delete(int id);
+       void Update(TEntity product);
+
+       void Delete(int id);
     }
 }

@@ -51,7 +51,34 @@ namespace SweetShop.BLL.Services
             return productDto;
         }
 
-        public void Create(ProductDto productDto)
+
+       public ProductDto ManageProductsLikes(ProductDto product, string userId)
+       {
+          if (product.Likes > 0)
+          {
+             var customer = _unitOfWork.Customers.GetByUserId(userId).Result;
+
+             var customerProducts =
+             _unitOfWork.ProductCustomers.Get(x => x.CustomerId == customer.Id && x.ProductId == product.Id).ToList();
+
+             if (customerProducts.Any())
+             {
+                product.Likes = product.Likes-2;
+
+                DeleteProductCustomer(customerProducts.First().Id);
+             }
+             else
+             {
+                var productCustomerDto = new ProductCustomerDto {ProductId = product.Id, CustomerId = customer.Id};
+
+                CreateProductCustomer(productCustomerDto);
+             }
+          }
+
+          return product;
+       }
+
+      public void Create(ProductDto productDto)
         {
             if (productDto == null)
             {
@@ -71,7 +98,21 @@ namespace SweetShop.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void Update(ProductDto productDto)
+      public void CreateProductCustomer(ProductCustomerDto productCustomerDto)
+      {
+         if (productCustomerDto == null)
+         {
+            throw new ArgumentNullException();
+         }
+
+         var productCustomer = _mapper.Map<ProductCustomer>(productCustomerDto);
+
+         _unitOfWork.ProductCustomers.Create(productCustomer);
+
+         _unitOfWork.Save();
+      }
+
+      public void Update(ProductDto productDto)
         {
             if (productDto == null)
             {
@@ -99,7 +140,14 @@ namespace SweetShop.BLL.Services
             _unitOfWork.Save();
         }
 
-        public IEnumerable<StatisticByProductsDto> GetStatisticByProducts()
+       public void DeleteProductCustomer(int id)
+       {
+          _unitOfWork.ProductCustomers.Delete(id);
+
+          _unitOfWork.Save();
+       }
+
+      public IEnumerable<StatisticByProductsDto> GetStatisticByProducts()
         {
             var statistic = _unitOfWork.Products.GetAll()
                 .GroupBy(grp => new {grp.Name})

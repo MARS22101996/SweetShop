@@ -11,9 +11,10 @@ using System;
 namespace SweetShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180314154808_customer-products")]
+    partial class customerproducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,11 +251,15 @@ namespace SweetShop.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CustomerId");
+                    b.Property<int?>("CompanyId");
 
-                    b.Property<int?>("ProductId");
+                    b.Property<int>("CustomerId");
+
+                    b.Property<int>("ProductId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("CustomerId");
 
@@ -325,13 +330,19 @@ namespace SweetShop.DAL.Migrations
 
             modelBuilder.Entity("SweetShop.DAL.Entities.ProductCustomer", b =>
                 {
-                    b.HasOne("SweetShop.DAL.Entities.Customer", "Customer")
+                    b.HasOne("SweetShop.DAL.Entities.Company")
                         .WithMany("ProductCustomers")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("SweetShop.DAL.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SweetShop.DAL.Entities.Product", "Product")
                         .WithMany("ProductCustomers")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
