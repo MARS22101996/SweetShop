@@ -34,9 +34,10 @@ namespace SweetShop.WEB.Controllers
       [HttpGet]
       public IEnumerable<ProductViewApiModel> Get()
       {
+         var userId = _caller.Claims.Single(c => c.Type == "id");
          var productDtos = _productService.GetAll();
-         var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos);
-
+         var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos).ToList();
+         SetFieldIsLIkedByUser(userId, productApiModels);
          return productApiModels;
       }
 
@@ -123,6 +124,25 @@ namespace SweetShop.WEB.Controllers
          _productService.Delete(id);
 
          return Ok(product);
+      }
+
+
+      [HttpGet("checkLikes/{id}")]
+      public bool CheckExistanseOfLikesForCustomer(int id)
+      {
+         var userId = _caller.Claims.Single(c => c.Type == "id");
+
+         var isLikeExists = _productService.CheckExistanseOfLikesForCustomer(userId.Value, id);
+
+         return isLikeExists;
+      }
+
+      private void SetFieldIsLIkedByUser(Claim userId, List<ProductViewApiModel> productApiModels)
+      {
+         foreach (var product in productApiModels)
+         {
+            product.IsLikedByUser = _productService.CheckExistanseOfLikesForCustomer(userId.Value, product.Id);
+         }
       }
    }
 }

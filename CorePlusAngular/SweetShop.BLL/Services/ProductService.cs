@@ -56,26 +56,56 @@ namespace SweetShop.BLL.Services
        {
           if (product.Likes > 0)
           {
-             var customer = _unitOfWork.Customers.GetByUserId(userId).Result;
+             var customer = GetCustomerById(userId);
 
-             var customerProducts =
-             _unitOfWork.ProductCustomers.Get(x => x.CustomerId == customer.Id && x.ProductId == product.Id).ToList();
+             var customerProducts = GetProductCustomers(customer.Id, product.Id);
 
              if (customerProducts.Any())
              {
-                product.Likes = product.Likes-2;
-
-                DeleteProductCustomer(customerProducts.First().Id);
+                DeleteLikeIfCustomerLiked(product, customerProducts);
              }
              else
              {
-                var productCustomerDto = new ProductCustomerDto {ProductId = product.Id, CustomerId = customer.Id};
-
-                CreateProductCustomer(productCustomerDto);
+                AddLikeIfCustomerDidNotLike(product, customer);
              }
           }
 
           return product;
+       }
+
+      private void AddLikeIfCustomerDidNotLike(ProductDto product, Customer customer)
+      {
+         var productCustomerDto = new ProductCustomerDto
+         {
+            ProductId = product.Id,
+            CustomerId = customer.Id
+         };
+
+         CreateProductCustomer(productCustomerDto);
+      }
+
+      private void DeleteLikeIfCustomerLiked(ProductDto product, List<ProductCustomer> customerProducts)
+      {
+         product.Likes = product.Likes - 2;
+
+         DeleteProductCustomer(customerProducts.First().Id);
+      }
+
+      private Customer GetCustomerById(string userId)
+      {
+         return _unitOfWork.Customers.GetByUserId(userId).Result;
+      }
+
+      private List<ProductCustomer> GetProductCustomers(int customerId, int productId)
+      {
+         return _unitOfWork.ProductCustomers.Get(x => x.CustomerId == customerId && x.ProductId == productId).ToList();
+      }
+
+       public bool CheckExistanseOfLikesForCustomer(string userId, int productId)
+       {
+         var customer = GetCustomerById(userId);
+
+         return GetProductCustomers(customer.Id, productId).Any();
        }
 
       public void Create(ProductDto productDto)

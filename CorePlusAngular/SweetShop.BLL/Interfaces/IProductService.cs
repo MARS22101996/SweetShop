@@ -26,5 +26,7 @@ namespace SweetShop.BLL.Interfaces
       ProductDto ManageProductsLikes(ProductDto product, string userId);
 
       void CreateProductCustomer(ProductCustomerDto productCustomerDto);
+
+      bool CheckExistanseOfLikesForCustomer(string userId, int productId);
    }
 }

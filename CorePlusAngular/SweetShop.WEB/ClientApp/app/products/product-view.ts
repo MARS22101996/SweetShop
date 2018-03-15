@@ -6,5 +6,6 @@ export class ProductView {
 		public companyId?: number,
 		public description?: string,
 		public likes?: number,
-		public price?: number) { }
+		public price?: number,
+	    public isLikedByUser?: boolean){}
 }

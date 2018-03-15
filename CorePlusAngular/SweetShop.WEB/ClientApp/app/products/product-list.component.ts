@@ -4,10 +4,12 @@ import { DataService } from './data.service';
 import { ProductView } from "./product-view";
 import { Router } from "@angular/router";
 import { Product } from "./product";
+import { ProductLike } from "./product-like";
 
 @Component({
     selector: 'product-list',
     templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.css'],
     providers: [DataService]
 })
 export class ProductListComponent implements OnInit {
@@ -16,6 +18,7 @@ export class ProductListComponent implements OnInit {
     products: ProductView[];
     sortBy: string;
     productForLike: Product;
+    status: ProductLike;
     constructor(private dataService: DataService, private router: Router) { }
 
     ngOnInit() {
@@ -61,8 +64,7 @@ export class ProductListComponent implements OnInit {
         this.sortBy='price'
     }
 
-    addLike(p: ProductView)
-    {  
+    addLike(p: ProductView) {
         this.productForLike = new Product();
         this.productForLike.id = p.id;
         this.productForLike.companyId = p.companyId;
@@ -71,11 +73,11 @@ export class ProductListComponent implements OnInit {
         this.productForLike.price = p.price;
         this.productForLike.likes = p.likes + 1;
 
-       this.dataService.updateProduct(this.productForLike)
-             .subscribe(data => this.chooseLoader()); 
-        
+        this.dataService.updateProduct(this.productForLike)
+            .subscribe(data => this.chooseLoader());
     }
 }
+
 
 function sortByNameExpression(s1: ProductView, s2: ProductView) {
     if (s1.name > s2.name) {

@@ -9,13 +9,23 @@ import { BaseService } from "../shared/services/base.service";
 export class DataService extends BaseService {
 
 	private url = "/api/products";
+	private headers: Headers;
 
-	constructor(private http: HttpClient, private httpClient: Http,  private user: UserService) {
-	    super();
+	constructor(private http: HttpClient, private httpClient: Http, private user: UserService) {
+		super();
 	}
 
 	getProducts() {
-		return this.http.get(this.url);
+		if (this.user.isLoggedIn()) {
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			let authToken = localStorage.getItem('auth_token');
+			headers.append('Authorization', `Bearer ${authToken}`);
+			return this.httpClient.get(this.url, { headers })
+				.map(response => response.json())
+				.catch(this.handleError);;
+		}
+		return null;
 	}
 
 	getProductsByCompany(id: number) {
@@ -59,5 +69,25 @@ export class DataService extends BaseService {
 
 	deleteProduct(id: number) {
 		return this.http.delete(this.url + '/' + id);
+	}
+
+	checkLikeForUser(id: number) {
+		if (this.user.isLoggedIn()) {
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			let authToken = localStorage.getItem('auth_token');
+			headers.append('Authorization', `Bearer ${authToken}`);
+			return this.httpClient.get(this.url + '/checkLikes/' + id, { headers })
+				.map(response => response.json())
+				.catch(this.handleError);
+		}
+		return null;
+	}
+
+	private SetHeaders() {
+		this.headers = new Headers();
+		this.headers.append('Content-Type', 'application/json');
+		let authToken = localStorage.getItem('auth_token');
+		this.headers.append('Authorization', `Bearer ${authToken}`);
 	}
 }

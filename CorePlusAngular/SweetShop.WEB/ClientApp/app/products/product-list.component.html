@@ -30,14 +30,13 @@
 
 								</div>
 								<div class="pnl-favorites">
-									<div class="pnl-ic-wrapper">
-										<span (click)="addLike(p)" class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
-										
-									</div>
+									<span class="pull-right">
+										<i (click)="addLike(p)" [ngClass]="!p.isLikedByUser ? 'fa fa-thumbs-up' : 'fa fa-thumbs-down'"></i>
+									</span>
 								</div>
-								<div class="pnl-favorites">
-									<span>{{p?.likes}}</span>
-								</div>
+								 <div class="pnl-favorites">
+									<span class="pnl-price text">{{p?.likes}}</span>
+								</div> 
 							</div>
 						</div>
 					</div>

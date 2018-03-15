@@ -15,5 +15,7 @@
         public decimal Price { get; set; }
 
         public int Likes { get; set; }
-    }
+
+        public bool IsLikedByUser { get; set; }
+   }
 }
