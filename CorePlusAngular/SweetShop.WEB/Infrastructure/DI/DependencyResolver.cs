@@ -7,16 +7,17 @@ using SweetShop.BLL.Services;
 
 namespace SweetShop.WEB.Infrastructure.DI
 {
-    public static class DependencyResolver
-    {
-        public static void Resolve(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSingleton(configuration);
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ICompanyService, CompanyService>();
+   public static class DependencyResolver
+   {
+      public static void Resolve(IServiceCollection services, IConfiguration configuration)
+      {
+         services.AddSingleton(configuration);
+         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+         services.AddTransient<IProductService, ProductService>();
+         services.AddTransient<ICompanyService, CompanyService>();
+         services.AddTransient<ICustomerService, CustomerService>();
 
-            DependencyResolverModule.Configure(services);
-        }
-    }
+         DependencyResolverModule.Configure(services);
+      }
+   }
 }

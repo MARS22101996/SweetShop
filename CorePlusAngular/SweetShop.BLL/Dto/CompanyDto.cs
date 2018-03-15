@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SweetShop.BLL.Dto
+﻿namespace SweetShop.BLL.Dto
 {
     public class CompanyDto
     {

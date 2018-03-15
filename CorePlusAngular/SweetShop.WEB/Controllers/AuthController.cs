@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using SweetShop.BLL.Interfaces;
 using SweetShop.DAL.Context;
 using SweetShop.DAL.Entities;
 using SweetShop.WEB.Helpers;
@@ -23,19 +24,19 @@ namespace SweetShop.WEB.Controllers
     private readonly IJwtFactory _jwtFactory;
     private readonly JwtIssuerOptions _jwtOptions;
     private readonly ClaimsPrincipal _caller;
-    private readonly ApplicationContext _appDbContext;
+    private readonly ICustomerService _customerService;
 
-    public AuthController(UserManager<AppUser> userManager,
+     public AuthController(UserManager<AppUser> userManager,
       IJwtFactory jwtFactory,
       IOptions<JwtIssuerOptions> jwtOptions,
       IHttpContextAccessor httpContextAccessor,
-       ApplicationContext appDbContext)
+      ICustomerService customerService)
     {
       _caller = httpContextAccessor.HttpContext.User;
       _userManager = userManager;
       _jwtFactory = jwtFactory;
       _jwtOptions = jwtOptions.Value;
-       _appDbContext = appDbContext;
+       _customerService = customerService;
     }
 
     // POST api/auth/login
@@ -80,12 +81,10 @@ namespace SweetShop.WEB.Controllers
    {
       var userId = _caller.Claims.Single(c => c.Type == "id");
 
-      var customer = await _appDbContext.Customers.Include(c => c.Identity)
-      .SingleAsync(c => c.Identity.Id == userId.Value);
+      var customer = await _customerService.Get(userId.Value);
 
       return new OkObjectResult(new
       {
-        Message = "This is secure API and user data!",
         customer.Identity.FirstName,
         customer.Identity.LastName,
         customer.Identity.PictureUrl,

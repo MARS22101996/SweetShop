@@ -16,34 +16,34 @@ namespace SweetShop.DAL.Repositories
          _context = context;
       }
 
-      public IEnumerable<TEntity> GetAll()
+      public virtual IEnumerable<TEntity> GetAll()
       {
          return _context.Set<TEntity>();
       }
 
-      public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
+      public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
       {
          return _context.Set<TEntity>().Where(predicate);
       }
 
-      public TEntity Get(int id)
+      public virtual TEntity Get(int id)
       {
          var entity = _context.Set<TEntity>().Find(id);
 
          return entity;
       }
 
-      public void Create(TEntity entity)
+      public virtual void Create(TEntity entity)
       {
          _context.Set<TEntity>().Add(entity);
       }
 
-      public void Update(TEntity entity)
+      public virtual void Update(TEntity entity)
       {
          _context.Set<TEntity>().Update(entity);
       }
 
-      public void Delete(int id)
+      public virtual void Delete(int id)
       {
          var entity = _context.Set<TEntity>().Find(id);
 

@@ -1,4 +1,5 @@
-﻿using SweetShop.DAL.Entities;
+﻿using System.Threading.Tasks;
+using SweetShop.DAL.Entities;
 
 namespace SweetShop.DAL.Interfaces
 {
@@ -13,5 +14,7 @@ namespace SweetShop.DAL.Interfaces
       IGenericRepository<ProductCustomer> ProductCustomers { get; }
 
       void Save();
+
+      Task SaveChangesAsync();
    }
 }

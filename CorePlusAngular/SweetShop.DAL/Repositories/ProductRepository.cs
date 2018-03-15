@@ -27,7 +27,7 @@ namespace SweetShop.DAL.Repositories
             return _context.Set<Product>().Include(x => x.Company).FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Product> Get(Expression<Func<Product, bool>> predicate)
+        public override IEnumerable<Product> Get(Expression<Func<Product, bool>> predicate)
         {
             return _context.Set<Product>().Include(x => x.Company).Where(predicate);
         }

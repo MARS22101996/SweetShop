@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using SweetShop.DAL.Context;
 using SweetShop.DAL.Entities;
 using SweetShop.DAL.Interfaces;
@@ -36,6 +37,11 @@ namespace SweetShop.DAL.UnitOfWorks
       public void Save()
       {
          _db.SaveChanges();
+      }
+
+      public async Task SaveChangesAsync()
+      {
+         await _db.SaveChangesAsync();
       }
 
       public void Dispose()

@@ -23,5 +23,10 @@ namespace SweetShop.DAL.Repositories
 
          return customer;
       }
+
+      public async Task CreateAsync(Customer customer)
+      {
+         await _context.Customers.AddAsync(customer);
+      }
    }
 }
