@@ -11,7 +11,7 @@ namespace SweetShop.DAL.Interfaces
 
       IGenericRepository<Company> Companies { get; }
 
-      IGenericRepository<ProductCustomer> ProductCustomers { get; }
+      IProductCustomerRepository ProductCustomers { get; }
 
       void Save();
 

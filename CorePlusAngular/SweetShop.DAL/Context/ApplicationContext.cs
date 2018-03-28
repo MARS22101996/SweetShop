@@ -18,6 +18,16 @@ namespace SweetShop.DAL.Context
       public DbSet<Customer> Customers { get; set; }
 
       public DbSet<ProductCustomer> ProductCustomers { get; set; }
+
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+         base.OnModelCreating(modelBuilder);
+
+         modelBuilder.Entity<ProductCustomer>()
+         .HasOne(p => p.Product)
+         .WithMany(b => b.ProductCustomers)
+         .OnDelete(DeleteBehavior.Cascade);
+      }
    }
 }
 

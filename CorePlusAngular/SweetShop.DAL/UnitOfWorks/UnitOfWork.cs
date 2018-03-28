@@ -12,7 +12,7 @@ namespace SweetShop.DAL.UnitOfWorks
       private readonly Lazy<IProductRepository> _productRepository;
       private readonly Lazy<ICustomerRepository> _customerRepository;
       private readonly Lazy<IGenericRepository<Company>> _companyRepository;
-      private readonly Lazy<IGenericRepository<ProductCustomer>> _productCustomerRepository;
+      private readonly Lazy<IProductCustomerRepository> _productCustomerRepository;
       private readonly ApplicationContext _db;
       private bool _disposed = false;
 
@@ -23,7 +23,7 @@ namespace SweetShop.DAL.UnitOfWorks
          _companyRepository = new Lazy<IGenericRepository<Company>>(() => new GenericRepository<Company>(_db));
          _customerRepository = new Lazy<ICustomerRepository>(() => new CustomersRepository(_db));
          _productCustomerRepository =
-         new Lazy<IGenericRepository<ProductCustomer>>(() => new GenericRepository<ProductCustomer>(_db));
+         new Lazy<IProductCustomerRepository>(() => new ProductCustomerRepository(_db));
       }
 
       public IProductRepository Products => _productRepository.Value;
@@ -32,7 +32,7 @@ namespace SweetShop.DAL.UnitOfWorks
 
       public ICustomerRepository Customers => _customerRepository.Value;
 
-      public IGenericRepository<ProductCustomer> ProductCustomers => _productCustomerRepository.Value;
+      public IProductCustomerRepository ProductCustomers => _productCustomerRepository.Value;
 
       public void Save()
       {

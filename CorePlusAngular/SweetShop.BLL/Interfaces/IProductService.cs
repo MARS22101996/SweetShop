@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SweetShop.BLL.Dto;
 
 namespace SweetShop.BLL.Interfaces
@@ -23,10 +21,10 @@ namespace SweetShop.BLL.Interfaces
 
       IEnumerable<StatisticByProductsDto> GetStatisticByCompany();
 
-      ProductDto ManageProductsLikes(ProductDto product, string userId);
+      bool CheckExistanseOfLikesByUserId(string userId, int productId);
 
-      void CreateProductCustomer(ProductCustomerDto productCustomerDto);
+      IEnumerable<ProductDto> GetFavourites(string userId);
 
-      bool CheckExistanseOfLikesForCustomer(string userId, int productId);
+      void UpdateWithManagingLikes(ProductDto productDto, string userId);
    }
 }

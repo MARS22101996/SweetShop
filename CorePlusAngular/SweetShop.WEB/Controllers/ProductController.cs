@@ -12,13 +12,13 @@ using SweetShop.WEB.Model;
 
 namespace SweetShop.WEB.Controllers
 {
-   //[Authorize(Policy = "ApiUser")]
    [Route("api/products")]
    public class ProductController : Controller
    {
       private readonly ClaimsPrincipal _caller;
       private readonly IMapper _mapper;
       private readonly IProductService _productService;
+      private const string ClaimsType = "id";
 
       public ProductController(UserManager<AppUser> userManager,
          IProductService productService,
@@ -33,10 +33,22 @@ namespace SweetShop.WEB.Controllers
       [HttpGet]
       public IEnumerable<ProductViewApiModel> Get()
       {
-         var userId = _caller.Claims.Single(c => c.Type == "id");
+         var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
          var productDtos = _productService.GetAll();
          var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos).ToList();
+
          SetFieldIsLIkedByUser(userId, productApiModels);
+         return productApiModels;
+      }
+
+      [HttpGet("favourites")]
+      public IEnumerable<ProductViewApiModel> GetFavotites()
+      {
+         var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
+         var productDtos = _productService.GetFavourites(userId.Value);
+         var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos).ToList();
+
+         SetProductsAsLiked(productApiModels);
          return productApiModels;
       }
 
@@ -103,13 +115,11 @@ namespace SweetShop.WEB.Controllers
       {
          if (ModelState.IsValid)
          {
-            var userId = _caller.Claims.Single(c => c.Type == "id");
+            var productDto = _mapper.Map<ProductDto>(product);
 
-            var producDto = _mapper.Map<ProductDto>(product);
+            var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
 
-            _productService.ManageProductsLikes(producDto, userId.Value);
-
-            _productService.Update(producDto);
+            _productService.UpdateWithManagingLikes(productDto, userId.Value);
 
             return Ok();
          }
@@ -129,18 +139,26 @@ namespace SweetShop.WEB.Controllers
       [HttpGet("checkLikes/{id}")]
       public bool CheckExistanseOfLikesForCustomer(int id)
       {
-         var userId = _caller.Claims.Single(c => c.Type == "id");
+         var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
 
-         var isLikeExists = _productService.CheckExistanseOfLikesForCustomer(userId.Value, id);
+         var isLikeExists = _productService.CheckExistanseOfLikesByUserId(userId.Value, id);
 
          return isLikeExists;
       }
 
-      private void SetFieldIsLIkedByUser(Claim userId, List<ProductViewApiModel> productApiModels)
+      private void SetFieldIsLIkedByUser(Claim userId, IEnumerable<ProductViewApiModel> productApiModels)
       {
          foreach (var product in productApiModels)
          {
-            product.IsLikedByUser = _productService.CheckExistanseOfLikesForCustomer(userId.Value, product.Id);
+            product.IsLikedByUser = _productService.CheckExistanseOfLikesByUserId(userId.Value, product.Id);
+         }
+      }
+
+      private static void SetProductsAsLiked(List<ProductViewApiModel> productApiModels)
+      {
+         foreach (var product in productApiModels)
+         {
+            product.IsLikedByUser = true;
          }
       }
    }
