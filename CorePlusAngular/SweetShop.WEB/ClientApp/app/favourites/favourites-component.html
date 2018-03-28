@@ -1,0 +1,22 @@
+<h1 class="site-heading-upper text-primary mb-3">
+    Favourites</h1>
+<table class="table table-striped products">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Company</td>
+            <td>Price</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [routerLink]="['/product', p.id]" *ngFor="let p of products">
+            <td>{{p?.name}}</td>
+            <td>{{p?.company }}</td>
+            <td>{{p?.price }}</td>
+            <!-- <td>
+                <button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
+            </td> -->
+        </tr>
+    </tbody>
+</table>

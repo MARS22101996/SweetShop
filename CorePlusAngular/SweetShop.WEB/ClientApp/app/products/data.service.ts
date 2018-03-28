@@ -28,6 +28,19 @@ export class DataService extends BaseService {
 		return null;
 	}
 
+	getFavoriteProducts() {
+		if (this.user.isLoggedIn()) {
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			let authToken = localStorage.getItem('auth_token');
+			headers.append('Authorization', `Bearer ${authToken}`);
+			return this.httpClient.get(this.url + '/favourites', { headers })
+				.map(response => response.json())
+				.catch(this.handleError);;
+		}
+		return null;
+	}
+
 	getProductsByCompany(id: number) {
 		return this.http.get(this.url + '/company/' + id);
 	}
@@ -69,6 +82,17 @@ export class DataService extends BaseService {
 
 	deleteProduct(id: number) {
 		return this.http.delete(this.url + '/' + id);
+	}
+
+	deleteFromFavourites(id: number) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		let authToken = localStorage.getItem('auth_token');
+		headers.append('Authorization', `Bearer ${authToken}`);
+		let options = new RequestOptions({ headers: headers });
+		return this.httpClient.delete(this.url + '/favourites/' + id, options)
+			.map(res => res.json())
+			.catch(this.handleError);
 	}
 
 	checkLikeForUser(id: number) {

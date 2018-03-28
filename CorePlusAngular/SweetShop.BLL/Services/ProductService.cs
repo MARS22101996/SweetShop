@@ -34,7 +34,7 @@ namespace SweetShop.BLL.Services
       {
          var customer = GetCustomerById(userId);
 
-         var products = _unitOfWork.ProductCustomers.Get(x => x.CustomerId == customer.Id);
+         var products = _unitOfWork.ProductCustomers.GetWithProducts(x => x.CustomerId == customer.Id).ToList();
 
          var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
 
@@ -137,16 +137,6 @@ namespace SweetShop.BLL.Services
 
          _unitOfWork.Save();
       }
-
-      //public IEnumerable<StatisticByProductsDto> GetStatisticByProducts()
-      //{
-      //   return _statisticService.GetStatisticByProducts();
-      //}
-
-      //public IEnumerable<StatisticByProductsDto> GetStatisticByCompany()
-      //{
-      //   return _statisticService.GetStatisticByCompany();
-      //}
 
       private ProductDto ManageProductsLikes(ProductDto product, int customerId)
       {

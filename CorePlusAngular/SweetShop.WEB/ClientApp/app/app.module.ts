@@ -35,6 +35,7 @@ import { CommonModule }       from '@angular/common';
 import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./auth.guard";
 import { FacebookLoginComponent } from "./account/facebook-login/facebook-login.component";
+import { FavouritesComponent } from "./favourites/favourites-component";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginFormComponent },
     { path: 'facebookLogin', component : FacebookLoginComponent},
     { path: 'register', component: RegistrationFormComponent },
+    { path: 'products/favourites', component: FavouritesComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
@@ -90,7 +92,8 @@ const appRoutes: Routes = [
         LoginFormComponent,
         RegistrationFormComponent,
         SpinnerComponent,
-        FacebookLoginComponent
+        FacebookLoginComponent,
+        FavouritesComponent
     ],
     providers: [
         DataService,
