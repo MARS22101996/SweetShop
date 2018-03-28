@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweetShop.BLL", "SweetShop.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweetShop.DAL", "SweetShop.DAL\SweetShop.DAL.csproj", "{B35584B1-4398-4BC5-893D-C563C775C269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetShop.Tests", "SweetShop.Tests\SweetShop.Tests.csproj", "{B58142CC-13F8-4CCC-AC4A-72B111A27136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweetShop.Tests", "SweetShop.Tests\SweetShop.Tests.csproj", "{B58142CC-13F8-4CCC-AC4A-72B111A27136}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetShop.CORE", "SweetShop.CORE\SweetShop.CORE.csproj", "{3EFE75EF-ED10-42CF-8705-FBF5A25C5263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B58142CC-13F8-4CCC-AC4A-72B111A27136}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58142CC-13F8-4CCC-AC4A-72B111A27136}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58142CC-13F8-4CCC-AC4A-72B111A27136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFE75EF-ED10-42CF-8705-FBF5A25C5263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFE75EF-ED10-42CF-8705-FBF5A25C5263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFE75EF-ED10-42CF-8705-FBF5A25C5263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFE75EF-ED10-42CF-8705-FBF5A25C5263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

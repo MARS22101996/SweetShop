@@ -12,9 +12,10 @@ using System;
 namespace SweetShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180328154447_add-orders-orders-details")]
+    partial class addordersordersdetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,10 +285,6 @@ namespace SweetShop.DAL.Migrations
                     b.Property<string>("Name");
 
                     b.Property<decimal>("Price");
-
-                    b.Property<int>("UnitsInStock");
-
-                    b.Property<int>("Views");
 
                     b.HasKey("Id");
 

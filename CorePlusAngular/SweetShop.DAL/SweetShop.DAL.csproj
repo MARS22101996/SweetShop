@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SweetShop.CORE\SweetShop.CORE.csproj" />
+  </ItemGroup>
+
 </Project>

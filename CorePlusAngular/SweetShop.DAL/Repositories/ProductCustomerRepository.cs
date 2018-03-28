@@ -18,7 +18,7 @@ namespace SweetShop.DAL.Repositories
 
       public IEnumerable<ProductCustomer> GetWithProducts(Expression<Func<ProductCustomer, bool>> predicate)
       {
-         return _context.Set<ProductCustomer>().Include(x => x.Product).ThenInclude(x => x.Company).Where(predicate);
+         return Context.Set<ProductCustomer>().Include(x => x.Product).ThenInclude(x => x.Company).Where(predicate);
       }
    }
 }

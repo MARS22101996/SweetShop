@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SweetShop.DAL.Context;
 using SweetShop.DAL.Entities;
@@ -18,7 +15,7 @@ namespace SweetShop.DAL.Repositories
 
       public async Task<Customer> GetByUserId(string id)
       {
-         var customer = await _context.Customers.Include(c => c.Identity)
+         var customer = await Context.Customers.Include(c => c.Identity)
          .SingleAsync(c => c.Identity.Id == id);
 
          return customer;
@@ -26,7 +23,7 @@ namespace SweetShop.DAL.Repositories
 
       public async Task CreateAsync(Customer customer)
       {
-         await _context.Customers.AddAsync(customer);
+         await Context.Customers.AddAsync(customer);
       }
    }
 }

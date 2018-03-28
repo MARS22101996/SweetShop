@@ -14,7 +14,6 @@ namespace SweetShop.WEB.Controllers
    [Route("api/[controller]")]
    public class AccountsController : Controller
    {
-      private readonly ApplicationContext _appDbContext;
       private readonly ICustomerService _customerService;
       private readonly UserManager<AppUser> _userManager;
       private readonly IMapper _mapper;
@@ -26,11 +25,9 @@ namespace SweetShop.WEB.Controllers
       {
          _userManager = userManager;
          _mapper = mapper;
-         _appDbContext = appDbContext;
          _customerService = customerService;
       }
 
-      // POST api/accounts
       [HttpPost]
       public async Task<IActionResult> Post([FromBody] RegistrationViewModel model)
       {

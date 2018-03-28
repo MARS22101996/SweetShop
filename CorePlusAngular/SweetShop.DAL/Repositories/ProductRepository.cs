@@ -19,17 +19,17 @@ namespace SweetShop.DAL.Repositories
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _context.Set<Product>().Include(x => x.Company);
+            return Context.Set<Product>().Include(x => x.Company);
         }
 
         public Product GetProduct(int id)
         {
-            return _context.Set<Product>().Include(x => x.Company).FirstOrDefault(x => x.Id == id);
+            return Context.Set<Product>().Include(x => x.Company).FirstOrDefault(x => x.Id == id);
         }
 
         public override IEnumerable<Product> Get(Expression<Func<Product, bool>> predicate)
         {
-            return _context.Set<Product>().Include(x => x.Company).Where(predicate);
+            return Context.Set<Product>().Include(x => x.Company).Where(predicate);
         }
     }
 }

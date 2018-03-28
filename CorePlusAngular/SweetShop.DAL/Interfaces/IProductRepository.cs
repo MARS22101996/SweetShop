@@ -10,7 +10,5 @@ namespace SweetShop.DAL.Interfaces
         IEnumerable<Product> GetAllProducts();
 
         Product GetProduct(int id);
-
-        IEnumerable<Product> Get(Expression<Func<Product, bool>> predicate);
     }
 }

@@ -19,6 +19,10 @@ namespace SweetShop.DAL.Context
 
       public DbSet<ProductCustomer> ProductCustomers { get; set; }
 
+      public DbSet<Order> Orders { get; set; }
+
+      public DbSet<OrderDetails> OrderDetails { get; set; }
+
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
