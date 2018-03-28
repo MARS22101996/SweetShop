@@ -18,14 +18,17 @@ namespace SweetShop.WEB.Controllers
       private readonly ClaimsPrincipal _caller;
       private readonly IMapper _mapper;
       private readonly IProductService _productService;
+      private readonly IStatisticService _statisticService;
       private const string ClaimsType = "id";
 
       public ProductController(UserManager<AppUser> userManager,
          IProductService productService,
          IMapper mapper,
-         IHttpContextAccessor httpContextAccessor)
+         IHttpContextAccessor httpContextAccessor, 
+         IStatisticService statisticService)
       {
          _mapper = mapper;
+         _statisticService = statisticService;
          _productService = productService;
          _caller = httpContextAccessor.HttpContext.User;
       }
@@ -73,7 +76,7 @@ namespace SweetShop.WEB.Controllers
       [HttpGet("statistic")]
       public IEnumerable<StatisticByProductsApiModel> GetStatisticByProducts()
       {
-         var productDtos = _productService.GetStatisticByProducts();
+         var productDtos = _statisticService.GetStatisticByProducts();
          var statisticApiModels = _mapper.Map<IEnumerable<StatisticByProductsApiModel>>(productDtos);
 
          return statisticApiModels;
@@ -82,7 +85,7 @@ namespace SweetShop.WEB.Controllers
       [HttpGet("statistic/company")]
       public IEnumerable<StatisticByProductsApiModel> GetStatisticByCompany()
       {
-         var productDtos = _productService.GetStatisticByCompany();
+         var productDtos = _statisticService.GetStatisticByCompany();
          var statisticApiModels = _mapper.Map<IEnumerable<StatisticByProductsApiModel>>(productDtos);
 
          return statisticApiModels;
