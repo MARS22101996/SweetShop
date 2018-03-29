@@ -37,7 +37,7 @@ namespace SweetShop.WEB.Controllers
       public IEnumerable<ProductViewApiModel> Get()
       {
          var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
-         var productDtos = _productService.GetAll();
+         var productDtos = _productService.GetAllWithQuantity(userId.Value);
          var productApiModels = _mapper.Map<IEnumerable<ProductViewApiModel>>(productDtos).ToList();
 
          SetFieldIsLIkedByUser(userId, productApiModels);

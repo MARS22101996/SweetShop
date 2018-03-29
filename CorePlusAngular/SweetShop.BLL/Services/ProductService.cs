@@ -5,6 +5,7 @@ using AutoMapper;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Infrastructure.Exceptions;
 using SweetShop.BLL.Interfaces;
+using SweetShop.CORE.Enums;
 using SweetShop.DAL.Entities;
 using SweetShop.DAL.Interfaces;
 
@@ -28,6 +29,37 @@ namespace SweetShop.BLL.Services
          var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
 
          return productDtos;
+      }
+
+      public IEnumerable<ProductDto> GetAllWithQuantity(string userId)
+      {
+         var customer = GetCustomerById(userId);
+
+         var products = _unitOfWork.Products.GetAllProducts();
+
+         var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products).ToList();
+
+         SetQuantityInBasketForCurrentUser(customer, productDtos);
+
+         return productDtos;
+      }
+
+      private void SetQuantityInBasketForCurrentUser(CustomerDto customer, List<ProductDto> productDtos)
+      {
+         foreach (var product in productDtos)
+         {
+            product.Quantity = GetQuantityOfProducts(product.Id, customer.Id);
+         }
+      }
+
+      private int GetQuantityOfProducts(int productId, int customerId)
+      {
+         var basket =
+         _unitOfWork.Orders.GetOneWithDetails(x => x.CustomerId == customerId && x.PaymentState == OrderStatus.New);
+
+         var detailsForProduct = basket.OrderDetailses.FirstOrDefault(x => x.ProductId == productId);
+
+         return detailsForProduct?.Quantity ?? 0;
       }
 
       public IEnumerable<ProductDto> GetFavourites(string userId)

@@ -4,6 +4,7 @@ import { Product } from './product';
 import { UserService } from "../shared/services/user.service";
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { BaseService } from "../shared/services/base.service";
+import { ProductView } from "./product-view";
 
 @Injectable()
 export class DataService extends BaseService {
@@ -15,12 +16,10 @@ export class DataService extends BaseService {
 		super();
 	}
 
+
 	getProducts() {
 		if (this.user.isLoggedIn()) {
-			let headers = new Headers();
-			headers.append('Content-Type', 'application/json');
-			let authToken = localStorage.getItem('auth_token');
-			headers.append('Authorization', `Bearer ${authToken}`);
+			let headers = this.setUpHeaders();
 			return this.httpClient.get(this.url, { headers })
 				.map(response => response.json())
 				.catch(this.handleError);;
@@ -30,10 +29,7 @@ export class DataService extends BaseService {
 
 	getFavoriteProducts() {
 		if (this.user.isLoggedIn()) {
-			let headers = new Headers();
-			headers.append('Content-Type', 'application/json');
-			let authToken = localStorage.getItem('auth_token');
-			headers.append('Authorization', `Bearer ${authToken}`);
+			let headers = this.setUpHeaders();
 			return this.httpClient.get(this.url + '/favourites', { headers })
 				.map(response => response.json())
 				.catch(this.handleError);;
@@ -66,13 +62,20 @@ export class DataService extends BaseService {
 		return this.http.post(this.url, product, { observe: 'response' });
 	}
 
+	likeByUser(productView: ProductView) {
+		if (this.user.isLoggedIn()) {
+			let product = this.addLike(productView);
+			let options = this.setUpOptions();
+			return this.httpClient.put(this.url + '/' + product.id, product, options)
+				.map(res => true)
+				.catch(this.handleError);;
+		}
+		return null;
+	}
+
 	updateProduct(product: Product) {
 		if (this.user.isLoggedIn()) {
-			let headers = new Headers();
-			headers.append('Content-Type', 'application/json');
-			let authToken = localStorage.getItem('auth_token');
-			headers.append('Authorization', `Bearer ${authToken}`);
-			let options = new RequestOptions({ headers: headers });
+			let options = this.setUpOptions();
 			return this.httpClient.put(this.url + '/' + product.id, product, options)
 				.map(res => true)
 				.catch(this.handleError);;
@@ -85,11 +88,7 @@ export class DataService extends BaseService {
 	}
 
 	deleteFromFavourites(id: number) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		let authToken = localStorage.getItem('auth_token');
-		headers.append('Authorization', `Bearer ${authToken}`);
-		let options = new RequestOptions({ headers: headers });
+		let options = this.setUpOptions();
 		return this.httpClient.delete(this.url + '/favourites/' + id, options)
 			.map(res => res.json())
 			.catch(this.handleError);
@@ -97,10 +96,7 @@ export class DataService extends BaseService {
 
 	checkLikeForUser(id: number) {
 		if (this.user.isLoggedIn()) {
-			let headers = new Headers();
-			headers.append('Content-Type', 'application/json');
-			let authToken = localStorage.getItem('auth_token');
-			headers.append('Authorization', `Bearer ${authToken}`);
+			let headers = this.setUpHeaders();
 			return this.httpClient.get(this.url + '/checkLikes/' + id, { headers })
 				.map(response => response.json())
 				.catch(this.handleError);
@@ -108,10 +104,32 @@ export class DataService extends BaseService {
 		return null;
 	}
 
-	private SetHeaders() {
-		this.headers = new Headers();
-		this.headers.append('Content-Type', 'application/json');
+	setUpOptions() {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 		let authToken = localStorage.getItem('auth_token');
-		this.headers.append('Authorization', `Bearer ${authToken}`);
+		headers.append('Authorization', `Bearer ${authToken}`);
+		let options = new RequestOptions({ headers: headers });
+		return options;
+	}
+
+
+	setUpHeaders() {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		let authToken = localStorage.getItem('auth_token');
+		headers.append('Authorization', `Bearer ${authToken}`);
+		return headers;
+	}
+
+	addLike(p: ProductView) {
+		let productForLike = new Product();
+		productForLike.id = p.id;
+		productForLike.companyId = p.companyId;
+		productForLike.description = p.description;
+		productForLike.name = p.name;
+		productForLike.price = p.price;
+		productForLike.likes = p.likes + 1;
+		return productForLike;
 	}
 }

@@ -36,6 +36,7 @@ import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./auth.guard";
 import { FacebookLoginComponent } from "./account/facebook-login/facebook-login.component";
 import { FavouritesComponent } from "./favourites/favourites-component";
+import { BasketService } from "./shared/services/basket.service";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -100,7 +101,9 @@ const appRoutes: Routes = [
         CompanyService,
         UserService,
         ConfigService,
-        AuthGuard],
+        AuthGuard,
+        BasketService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using SweetShop.DAL.Entities;
-
-namespace SweetShop.BLL.Dto
+﻿namespace SweetShop.BLL.Dto
 {
    public class ProductDto
    {
@@ -16,6 +13,8 @@ namespace SweetShop.BLL.Dto
       public string Description { get; set; }
 
       public int Likes { get; set; }
+
+      public int Quantity { get; set; }
 
       public bool IsLikedByUser { get; set; }
 

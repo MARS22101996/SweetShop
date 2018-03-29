@@ -5,6 +5,8 @@ import { ProductView } from "./product-view";
 import { Router } from "@angular/router";
 import { Product } from "./product";
 import { ProductLike } from "./product-like";
+import { BasketService } from "../shared/services/basket.service";
+import { OrderDetails } from "../shared/models/order.detail";
 
 @Component({
     selector: 'product-list',
@@ -19,14 +21,16 @@ export class ProductListComponent implements OnInit {
     sortBy: string;
     productForLike: Product;
     status: ProductLike;
-    constructor(private dataService: DataService, private router: Router) { }
+    constructor(
+        private dataService: DataService,
+        private router: Router,
+        private basketService: BasketService) { }
 
     ngOnInit() {
         this.chooseLoader()
     }
-    
-    chooseLoader()
-    {
+
+    chooseLoader() {
         if (this.companyId !== undefined) {
             this.loadByCompany();
         }
@@ -44,36 +48,31 @@ export class ProductListComponent implements OnInit {
         this.dataService.getProductsByCompany(this.companyId).subscribe((data: ProductView[]) => this.products = data);
     }
 
+    buy(product: ProductView) {
+        this.basketService.buyProduct(product).subscribe(data => this.load());
+    }
 
-    delete(id: number) {     
+    delete(id: number) {
         this.dataService.deleteProduct(id).subscribe(data => this.load());
     }
 
     sortByName() {
         this.products.sort(sortByNameExpression)
-        this.sortBy='name'
+        this.sortBy = 'name'
     }
 
     sortByCompany() {
         this.products.sort(sortByCompanyExpression)
-        this.sortBy='company'
+        this.sortBy = 'company'
     }
 
     sortByPrice() {
         this.products.sort(sortByPriceExpression)
-        this.sortBy='price'
+        this.sortBy = 'price'
     }
 
     addLike(p: ProductView) {
-        this.productForLike = new Product();
-        this.productForLike.id = p.id;
-        this.productForLike.companyId = p.companyId;
-        this.productForLike.description = p.description;
-        this.productForLike.name = p.name;
-        this.productForLike.price = p.price;
-        this.productForLike.likes = p.likes + 1;
-
-        this.dataService.updateProduct(this.productForLike)
+        this.dataService.likeByUser(p)
             .subscribe(data => this.chooseLoader());
     }
 }

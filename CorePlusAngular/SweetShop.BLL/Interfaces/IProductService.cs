@@ -22,5 +22,7 @@ namespace SweetShop.BLL.Interfaces
       IEnumerable<ProductDto> GetFavourites(string userId);
 
       void UpdateWithManagingLikes(ProductDto productDto, string userId);
+
+      IEnumerable<ProductDto> GetAllWithQuantity(string userId);
    }
 }
