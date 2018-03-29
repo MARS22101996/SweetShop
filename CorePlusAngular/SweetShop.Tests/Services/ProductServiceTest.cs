@@ -20,11 +20,12 @@ namespace SweetShop.Tests.Services
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
 
        public ProductServiceTest()
-        {
-            var mapper = GetMapper();
-            _unitOfWorkMock = new Mock<IUnitOfWork>();
-            _sut = new ProductService(_unitOfWorkMock.Object, mapper);
-        }
+       {
+          var mapper = GetMapper();
+          _unitOfWorkMock = new Mock<IUnitOfWork>();
+          var basketServiceMock = new Mock<IBasketService>();
+          _sut = new ProductService(_unitOfWorkMock.Object, mapper, basketServiceMock.Object);
+       }
 
         [Test]
         public void Get_ReturnsCorrectProduct_WhenProductExists()

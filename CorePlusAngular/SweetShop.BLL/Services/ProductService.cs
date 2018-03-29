@@ -15,11 +15,16 @@ namespace SweetShop.BLL.Services
    {
       private readonly IUnitOfWork _unitOfWork;
       private readonly IMapper _mapper;
+      private readonly IBasketService _basketService;
 
-      public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+      public ProductService(
+         IUnitOfWork unitOfWork,
+         IMapper mapper,
+         IBasketService basketService)
       {
          _unitOfWork = unitOfWork;
          _mapper = mapper;
+         _basketService = basketService;
       }
 
       public IEnumerable<ProductDto> GetAll()
@@ -54,10 +59,7 @@ namespace SweetShop.BLL.Services
 
       private int GetQuantityOfProducts(int productId, int customerId)
       {
-         var basket =
-         _unitOfWork.Orders.GetOneWithDetails(x => x.CustomerId == customerId && x.PaymentState == OrderStatus.New);
-
-         var detailsForProduct = basket.OrderDetailses.FirstOrDefault(x => x.ProductId == productId);
+         var detailsForProduct = _basketService.GetOrderDetailsForProduct(productId, customerId);
 
          return detailsForProduct?.Quantity ?? 0;
       }

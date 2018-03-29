@@ -33,6 +33,15 @@ namespace SweetShop.BLL.Services
          CheckBasketForUserAndManageDetails(orderDetailsDto, customer.Id);
       }
 
+      public OrderDetails GetOrderDetailsForProduct(int productId, int customerId)
+      {
+         var order = GetBasketByUserWithDetails(customerId);
+
+         var detailsForProduct = order.OrderDetailses.FirstOrDefault(x => x.ProductId == productId);
+
+         return detailsForProduct;
+      }
+
       private void CheckBasketForUserAndManageDetails(OrderDetailsDto orderDetailsDto, int customerId)
       {
          if (!IsBasketExistsForUser(customerId))
