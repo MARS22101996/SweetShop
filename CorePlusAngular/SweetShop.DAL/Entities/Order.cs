@@ -28,7 +28,6 @@ namespace SweetShop.DAL.Entities
 
       public DateTime? ShippedDate { get; set; }
 
-      [Required]
       public decimal Sum { get; set; }
 
       public virtual ICollection<OrderDetails> OrderDetailses { get; set; }

@@ -20,6 +20,8 @@ namespace SweetShop.BLL.Infrastructure.Automapper
          .ForMember(au => au.Price, map => map.MapFrom(vm => vm.Product.Price))
          .ForMember(au => au.Name, map => map.MapFrom(vm => vm.Product.Name))
          .ForMember(au => au.Company, map => map.MapFrom(vm => vm.Product.Company));
+         CreateMap<Order, OrderDto>();
+         CreateMap<OrderDetails, OrderDetailsDto>();
       }
    }
 }

@@ -13,6 +13,10 @@ namespace SweetShop.DAL.Interfaces
 
       IProductCustomerRepository ProductCustomers { get; }
 
+      IOrderRepository Orders { get; }
+
+      IGenericRepository<OrderDetails> OrderDetails { get; }
+
       void Save();
 
       Task SaveChangesAsync();

@@ -11,6 +11,8 @@ namespace SweetShop.DAL.Interfaces
 
        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate);
 
+       TEntity GetOne(Expression<Func<TEntity, bool>> predicate);
+
        TEntity Get(int id);
 
        void Create(TEntity product);

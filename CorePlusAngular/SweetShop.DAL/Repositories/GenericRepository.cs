@@ -26,6 +26,11 @@ namespace SweetShop.DAL.Repositories
          return Context.Set<TEntity>().Where(predicate);
       }
 
+      public virtual TEntity GetOne(Expression<Func<TEntity, bool>> predicate)
+      {
+         return Context.Set<TEntity>().FirstOrDefault(predicate);
+      }
+
       public virtual TEntity Get(int id)
       {
          var entity = Context.Set<TEntity>().Find(id);

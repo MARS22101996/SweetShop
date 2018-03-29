@@ -23,10 +23,6 @@ namespace SweetShop.DAL.Entities
 
       public int Likes { get; set; }
 
-      public int Views { get; set; }
-
-      public int UnitsInStock { get; set; }
-
       public virtual Company Company { get; set; }
 
       public ICollection<ProductCustomer> ProductCustomers { get; set; }
