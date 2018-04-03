@@ -12,11 +12,12 @@ namespace SweetShop.DAL.Repositories
    {
       public OrderRepository(ApplicationContext context) : base(context)
       {
-
       }
+
       public Order GetOneWithDetails(Expression<Func<Order, bool>> predicate)
       {
-         return Context.Set<Order>().Include(x => x.OrderDetailses).FirstOrDefault(predicate);
+         return Context.Set<Order>().Include(x => x.OrderDetailses).ThenInclude(x => x.Product)
+         .FirstOrDefault(predicate);
       }
    }
 }

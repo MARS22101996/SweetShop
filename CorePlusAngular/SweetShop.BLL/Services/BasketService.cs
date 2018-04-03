@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using SweetShop.BLL.Dto;
@@ -19,6 +20,16 @@ namespace SweetShop.BLL.Services
       {
          _unitOfWork = unitOfWork;
          _mapper = mapper;
+      }
+
+      public OrderDto GetBasketForUser(string userId)
+      {
+         var customer = GetCustomerById(userId);
+
+         var basket = GetBasketByUserWithDetails(customer.Id);
+         var orderDto = Mapper.Map<OrderDto>(basket);
+
+         return orderDto;
       }
 
       public void BuyProduct(OrderDetailsDto orderDetailsDto, string userId)
@@ -47,6 +58,31 @@ namespace SweetShop.BLL.Services
          return detailsForProduct;
       }
 
+      public void Delete(int id)
+      {
+         var orderDetail = _unitOfWork.OrderDetails.Get(id);
+
+         if (orderDetail == null)
+         {
+            throw new EntityNotFoundException($"Order detail with such id doesn't exist. Id: {id}");
+         }
+
+         _unitOfWork.OrderDetails.Delete(id);
+
+          UpdateOrderAfterDeletingDetails(orderDetail);
+
+         _unitOfWork.Save();
+      }
+
+      private void UpdateOrderAfterDeletingDetails(OrderDetails orderDetail)
+      {
+         var order = _unitOfWork.Orders.GetOneWithDetails(x => x.OrderId == orderDetail.OrderId);
+         order.OrderDetailses.Remove(orderDetail);
+
+         CalculateSumOfOrder(order);
+         _unitOfWork.Orders.Update(order);
+      }
+
       private void CheckBasketForUserAndManageDetails(OrderDetailsDto orderDetailsDto, int customerId)
       {
          if (!IsBasketExistsForUser(customerId))
@@ -71,11 +107,15 @@ namespace SweetShop.BLL.Services
       private void UpdateBasketAfterAddDetail(int customerId)
       {
          var userBasket = GetBasketByUserWithDetails(customerId);
-
-         userBasket.Sum = userBasket.OrderDetailses.Sum(x => x.Price * x.Quantity);
+         CalculateSumOfOrder(userBasket);
 
          _unitOfWork.Orders.Update(userBasket);
          _unitOfWork.Save();
+      }
+
+      private void CalculateSumOfOrder(Order userBasket)
+      {
+         userBasket.Sum = userBasket.OrderDetailses.Sum(x => x.Price * x.Quantity);
       }
 
       private void CreateBasket(int customerId)

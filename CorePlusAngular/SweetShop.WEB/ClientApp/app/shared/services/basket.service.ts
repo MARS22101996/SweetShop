@@ -16,15 +16,34 @@ export class BasketService extends BaseService {
         super();
     }
 
-    buyProduct(product: ProductView) {
+    buy(product: ProductView) {
         if (this.user.isLoggedIn()) {
             let orderDetail = this.createOrderDetail(product);
-            let options = this.setUpHeaders();
-            return this.http.post(this.url, orderDetail, options)
-                .map(res => true)
-                .catch(this.handleError);;
+            var result = this.updateOrderDetail(orderDetail);
+            return result;
         }
         return null;
+    }
+
+    updateOrderDetail(orderDetail: OrderDetails) {
+        let options = this.setUpOptions();
+        return this.http.post(this.url, orderDetail, options)
+            .map(res => true)
+            .catch(this.handleError);;
+    }
+
+    getBasket() {
+        if (this.user.isLoggedIn()) {
+            let headers = this.setUpHeaders()
+            return this.http.get(this.url, { headers })
+                .map(response => response.json())
+                .catch(this.handleError);
+        }
+        return null;
+    }
+
+    delete(id: number) {
+        return this.http.delete(this.url + '/' + id);
     }
 
     setUpHeaders() {
@@ -32,6 +51,11 @@ export class BasketService extends BaseService {
         headers.append('Content-Type', 'application/json');
         let authToken = localStorage.getItem('auth_token');
         headers.append('Authorization', `Bearer ${authToken}`);
+        return headers;
+    }
+
+    setUpOptions() {
+        let headers = this.setUpHeaders();
         let options = new RequestOptions({ headers: headers });
         return options;
     }

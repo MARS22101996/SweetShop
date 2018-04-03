@@ -18,5 +18,7 @@ namespace SweetShop.WEB.Model
       public int OrderId { get; set; }
 
       public int ProductId { get; set; }
+
+      public ProductViewApiModel Product { get; set; }
    }
 }

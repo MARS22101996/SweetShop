@@ -49,7 +49,7 @@ export class ProductListComponent implements OnInit {
     }
 
     buy(product: ProductView) {
-        this.basketService.buyProduct(product).subscribe(data => this.load());
+        this.basketService.buy(product).subscribe(data => this.load());
     }
 
     delete(id: number) {

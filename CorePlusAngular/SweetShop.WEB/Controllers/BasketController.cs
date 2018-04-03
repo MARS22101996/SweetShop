@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,16 @@ namespace SweetShop.WEB.Controllers
          _caller = httpContextAccessor.HttpContext.User;
       }
 
+      [HttpGet]
+      public BasketApiModel Get()
+      {
+         var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
+         var basketForUser = _basketService.GetBasketForUser(userId.Value);
+         var basketApiModel = _mapper.Map<BasketApiModel>(basketForUser);
+
+         return basketApiModel;
+      }
+
       [HttpPost]
       public IActionResult Post([FromBody] OrderDetailsApiModel orderDetails)
       {
@@ -40,6 +51,15 @@ namespace SweetShop.WEB.Controllers
             return Ok(orderDetails);
          }
          return BadRequest(ModelState);
+      }
+
+
+      [HttpDelete("{id}")]
+      public IActionResult Delete(int id)
+      {
+         _basketService.Delete(id);
+
+         return Ok();
       }
    }
 }

@@ -37,6 +37,7 @@ import { AuthGuard } from "./auth.guard";
 import { FacebookLoginComponent } from "./account/facebook-login/facebook-login.component";
 import { FavouritesComponent } from "./favourites/favourites-component";
 import { BasketService } from "./shared/services/basket.service";
+import { BasketComponent } from "./basket/basket.component";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     { path: 'facebookLogin', component : FacebookLoginComponent},
     { path: 'register', component: RegistrationFormComponent },
     { path: 'products/favourites', component: FavouritesComponent },
+    { path: 'basket', component: BasketComponent },
     { path: '**', redirectTo: '/products' },
     { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
@@ -94,7 +96,8 @@ const appRoutes: Routes = [
         RegistrationFormComponent,
         SpinnerComponent,
         FacebookLoginComponent,
-        FavouritesComponent
+        FavouritesComponent,
+        BasketComponent
     ],
     providers: [
         DataService,
