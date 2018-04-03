@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NUnit.Framework;
 using SweetShop.BLL.Interfaces;
 using SweetShop.BLL.Services;
 using SweetShop.DAL.Entities;
@@ -9,6 +9,7 @@ using SweetShop.DAL.Interfaces;
 
 namespace SweetShop.Tests.Services
 {
+   [TestClass]
    public class StatisticServiceTest : TestBase
    {
       private readonly IStatisticService _sut;
@@ -20,7 +21,7 @@ namespace SweetShop.Tests.Services
          _sut = new StatisticService(_unitOfWorkMock.Object);
       }
 
-      [Test]
+      [TestMethod]
       public void GetStatisticByProducts_ReturnsCorrectStatistic_WhenProductsAreExisted()
       {
          const string name = "Chocolate";
@@ -43,7 +44,7 @@ namespace SweetShop.Tests.Services
          Assert.AreEqual(expectedLikes, result.First().Likes);
       }
 
-      [Test]
+      [TestMethod]
       public void GetStatisticByProducts_ReturnsEmptyList_WhenProductsAreNotExisted()
       {
          const int expectedCount = 0;
@@ -56,23 +57,13 @@ namespace SweetShop.Tests.Services
          Assert.AreEqual(expectedCount, result.Count);
       }
 
-      [Test]
+      [TestMethod]
       public void GetStatisticByCompany_ReturnsEmptyList_WhenProductsAreNotExisted()
       {
          const int expectedCount = 0;
 
          _unitOfWorkMock
          .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(new List<Product>());
-
-         var result = _sut.GetStatisticByCompany().ToList();
-
-         Assert.AreEqual(expectedCount, result.Count);
-      }
-
-      [Test]
-      public void GetStatisticByCompany_ReturnsEmptyList_WhenCompaniesAreNotExisted()
-      {
-         const int expectedCount = 0;
 
          _unitOfWorkMock
          .Setup(unitOfWork => unitOfWork.Companies.GetAll()).Returns(new List<Company>());
@@ -82,7 +73,23 @@ namespace SweetShop.Tests.Services
          Assert.AreEqual(expectedCount, result.Count);
       }
 
-      [Test]
+      [TestMethod]
+      public void GetStatisticByCompany_ReturnsEmptyList_WhenCompaniesAreNotExisted()
+      {
+         const int expectedCount = 0;
+
+         _unitOfWorkMock
+         .Setup(unitOfWork => unitOfWork.Products.GetAll()).Returns(new List<Product>());
+
+         _unitOfWorkMock
+         .Setup(unitOfWork => unitOfWork.Companies.GetAll()).Returns(new List<Company>());
+
+         var result = _sut.GetStatisticByCompany().ToList();
+
+         Assert.AreEqual(expectedCount, result.Count);
+      }
+
+      [TestMethod]
       public void GetStatisticByCompany_ReturnsEmptyList_WhenCompaniesAndProductsAreNotExisted()
       {
          const int expectedCount = 0;
@@ -98,7 +105,7 @@ namespace SweetShop.Tests.Services
          Assert.AreEqual(expectedCount, result.Count);
       }
 
-      [Test]
+      [TestMethod]
       public void GetStatisticByCompany_ReturnsCorrectStatistic_WhenProductsAndCompaniesAreExisted()
       {
          const string name = "Roshen";

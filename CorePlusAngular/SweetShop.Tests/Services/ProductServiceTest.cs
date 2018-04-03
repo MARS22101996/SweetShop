@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NUnit.Framework;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Infrastructure.Exceptions;
 using SweetShop.BLL.Services;
@@ -13,7 +13,7 @@ using SweetShop.DAL.Entities;
 
 namespace SweetShop.Tests.Services
 {
-    [TestFixture]
+    [TestClass]
     public class ProductServiceTest : TestBase
     {
         private readonly IProductService _sut;
@@ -27,7 +27,7 @@ namespace SweetShop.Tests.Services
           _sut = new ProductService(_unitOfWorkMock.Object, mapper, basketServiceMock.Object);
        }
 
-        [Test]
+        [TestMethod]
         public void Get_ReturnsCorrectProduct_WhenProductExists()
         {
             var product = new Product {Id = 1};
@@ -41,7 +41,7 @@ namespace SweetShop.Tests.Services
             Assert.AreEqual(product.Id, result.Id);
         }
 
-        [Test]
+        [TestMethod]
         public void Get_ThrowsEntityNotFoundException_WhenProductIsNotExisted()
         {
             const int productId = 1;
@@ -49,10 +49,10 @@ namespace SweetShop.Tests.Services
                 .Setup(unitOfWork => unitOfWork.Products.GetProduct(productId))
                 .Returns((Product) null);
 
-            Assert.Throws<EntityNotFoundException>(() => _sut.Get(productId));
+            Assert.ThrowsException<EntityNotFoundException>(() => _sut.Get(productId));
         }
 
-        [Test]
+        [TestMethod]
         public void GetAll_ReturnsCorrectProduct_WhenProductsAreExisted()
         {
             var products = new List<Product> {new Product {Id = 1}};
@@ -65,7 +65,7 @@ namespace SweetShop.Tests.Services
             Assert.AreEqual(products.Count, result.Count());
         }
 
-        [Test]
+        [TestMethod]
         public void GetAll_ReturnsEmptyList_WhenProductsAreNotExisted()
         {
             var products = new List<Product>();
@@ -78,7 +78,7 @@ namespace SweetShop.Tests.Services
             Assert.AreEqual(products.Count, result.Count());
         }
 
-        [Test]
+        [TestMethod]
         public void GetFilteredByCompany_ReturnsFilteredProducts_WhenProductsAreExisted()
         {
             const int companyId = 1;
@@ -94,7 +94,7 @@ namespace SweetShop.Tests.Services
             Assert.AreEqual(products.Count, result.Count());
         }
 
-        [Test]
+        [TestMethod]
         public void GetFilteredByCompany_ReturnsEmptyList_WhenProductsAreNotExisted()
         {
             const int companyId = 1;
@@ -110,7 +110,7 @@ namespace SweetShop.Tests.Services
             Assert.AreEqual(products.Count, result.Count());
         }
 
-        [Test]
+        [TestMethod]
         public void Create_CallsCreateFromDal_WhenProductIsValid()
         {
             var model = new ProductDto {Id = 1, CompanyId = 1};
@@ -126,7 +126,7 @@ namespace SweetShop.Tests.Services
             _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()), Times.Once);
         }
 
-        [Test]
+        [TestMethod]
         public void Create_ThrowsEntityNotFoundException_WhenCompanyIsNotExisted()
         {
             var model = new ProductDto {Id = 1, CompanyId = 1};
@@ -137,16 +137,16 @@ namespace SweetShop.Tests.Services
                 .Setup(unitOfWork => unitOfWork.Companies.Get(model.CompanyId))
                 .Returns((Company) null);
 
-            Assert.Throws<EntityNotFoundException>(() => _sut.Create(model));
+            Assert.ThrowsException<EntityNotFoundException>(() => _sut.Create(model));
         }
 
-        [Test]
+        [TestMethod]
         public void Create_ThrowsArgumentNullException_WhenProductIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => _sut.Create(null));
+            Assert.ThrowsException<ArgumentNullException>(() => _sut.Create(null));
         }
 
-        [Test]
+        [TestMethod]
         public void Update_CallsUpdateFromDal_WhenProductIsValid()
         {
             var model = new ProductDto {Id = 1, CompanyId = 1};
@@ -158,13 +158,13 @@ namespace SweetShop.Tests.Services
             _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Update(It.IsAny<Product>()), Times.Once);
         }
 
-        [Test]
+        [TestMethod]
         public void Update_ThrowsArgumentNullException_WhenProductIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => _sut.Update(null));
+            Assert.ThrowsException<ArgumentNullException>(() => _sut.Update(null));
         }
 
-        [Test]
+        [TestMethod]
         public void Delete_CallsDeleteMethod_WhenProductIsExisted()
         {
             var product = new Product {Id = 1};
@@ -181,7 +181,7 @@ namespace SweetShop.Tests.Services
             _unitOfWorkMock.Verify(unitOfWork => unitOfWork.Products.Delete(It.IsAny<int>()), Times.Once);
         }
 
-        [Test]
+        [TestMethod]
         public void DeleteAsync_ThrowsEntityNotFoundException_WhenProductIsNotExisted()
         {
             const int productId = 1;
@@ -190,7 +190,7 @@ namespace SweetShop.Tests.Services
                 .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<int>()))
                 .Returns((Product) null);
 
-            Assert.Throws<EntityNotFoundException>(() => _sut.Delete(productId));
+            Assert.ThrowsException<EntityNotFoundException>(() => _sut.Delete(productId));
         }
     }
 }
