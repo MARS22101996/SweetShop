@@ -37,7 +37,12 @@ namespace SweetShop.BLL.Services
       {
          var order = GetBasketByUserWithDetails(customerId);
 
-         var detailsForProduct = order.OrderDetailses.FirstOrDefault(x => x.ProductId == productId);
+         OrderDetails detailsForProduct = null;
+
+         if (order != null)
+         {
+            detailsForProduct = order.OrderDetailses.FirstOrDefault(x => x.ProductId == productId);
+         }
 
          return detailsForProduct;
       }

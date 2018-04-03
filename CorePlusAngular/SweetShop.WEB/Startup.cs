@@ -30,9 +30,15 @@ namespace SweetShop.WEB
 
       private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
-      public Startup(IConfiguration configuration)
+      public Startup(IHostingEnvironment env)
       {
-         Configuration = configuration;
+         var builder = new ConfigurationBuilder()
+         .SetBasePath(env.ContentRootPath)
+         .AddJsonFile("appsettings.json", true, true)
+         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+         .AddEnvironmentVariables();
+
+         Configuration = builder.Build();
       }
 
 
@@ -40,6 +46,8 @@ namespace SweetShop.WEB
 
       public void ConfigureServices(IServiceCollection services)
       {
+         services.AddCors();
+
          DependencyResolver.Resolve(services, Configuration);
 
          var connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -127,6 +135,13 @@ namespace SweetShop.WEB
                HotModuleReplacement = true
             });
          }
+
+         app.UseCors(builder =>
+            builder.WithOrigins("http://sweetshopmaria.azurewebsites.net")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+         );
 
          app.UseAuthentication();
          app.UseDefaultFiles();

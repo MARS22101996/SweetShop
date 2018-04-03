@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 
 namespace SweetShop.DAL.Entities
 {
-    public class AppUser : IdentityUser
+   [Table("AspNetUsers")]
+   public class AppUser : IdentityUser
     {
        public string FirstName { get; set; }
 

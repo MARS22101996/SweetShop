@@ -5,7 +5,6 @@ using AutoMapper;
 using SweetShop.BLL.Dto;
 using SweetShop.BLL.Infrastructure.Exceptions;
 using SweetShop.BLL.Interfaces;
-using SweetShop.CORE.Enums;
 using SweetShop.DAL.Entities;
 using SweetShop.DAL.Interfaces;
 
