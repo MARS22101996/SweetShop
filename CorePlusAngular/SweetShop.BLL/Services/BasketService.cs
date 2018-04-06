@@ -142,7 +142,9 @@ namespace SweetShop.BLL.Services
          _unitOfWork.Save();
       }
 
-      private void CheckOrderDetailAndCreateOrUpdateIt(OrderDetailsDto orderDetailsDto, Order userBasket,
+      private void CheckOrderDetailAndCreateOrUpdateIt(
+         OrderDetailsDto orderDetailsDto,
+         Order userBasket,
          OrderDetails orderDetail)
       {
          if (orderDetail != null)

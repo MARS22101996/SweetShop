@@ -1,5 +1,4 @@
-﻿//using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,71 +13,74 @@ namespace SweetShop.WEB.Controllers
 {
    //[Authorize(Policy = "ApiUser")]
    [Route("api/companies")]
-    public class CompanyController : Controller
-    {
-        private readonly IMapper _mapper;
-        private readonly ICompanyService _companyService;
+   public class CompanyController : Controller
+   {
+      private readonly IMapper _mapper;
+      private readonly ICompanyService _companyService;
 
-        public CompanyController(UserManager<AppUser> userManager,
-            ICompanyService companyService,
-            IMapper mapper,
-            IHttpContextAccessor httpContextAccessor)
-        {
-            _mapper = mapper;
-            _companyService = companyService;
-        }
+      public CompanyController(
+         UserManager<AppUser> userManager,
+         ICompanyService companyService,
+         IMapper mapper,
+         IHttpContextAccessor httpContextAccessor)
+      {
+         _mapper = mapper;
+         _companyService = companyService;
+      }
 
-        [HttpGet]
-        public IEnumerable<CompanyApiModel> Get()
-        {
-            var productDtos = _companyService.GetAll();
-            var productApiModels = _mapper.Map<IEnumerable<CompanyApiModel>>(productDtos);
+      [HttpGet]
+      public IEnumerable<CompanyApiModel> Get()
+      {
+         var productDtos = _companyService.GetAll();
+         var productApiModels = _mapper.Map<IEnumerable<CompanyApiModel>>(productDtos);
 
-            return productApiModels;
-        }
+         return productApiModels;
+      }
 
-        [HttpGet("{id}")]
-        public CompanyApiModel Get(int id)
-        {
-            var productDto = _companyService.Get(id);
-            var productApiModel = _mapper.Map<CompanyApiModel>(productDto);
+      [HttpGet("{id}")]
+      public CompanyApiModel Get(int id)
+      {
+         var productDto = _companyService.Get(id);
+         var productApiModel = _mapper.Map<CompanyApiModel>(productDto);
 
-            return productApiModel;
-        }
+         return productApiModel;
+      }
 
-        [HttpPost]
-        public IActionResult Post([FromBody]CompanyApiModel company)
-        {
-            if (ModelState.IsValid)
-            {
-                var companyDto = _mapper.Map<CompanyDto>(company);
-                _companyService.Create(companyDto);
+      [HttpPost]
+      public IActionResult Post([FromBody]CompanyApiModel company)
+      {
+         if (ModelState.IsValid)
+         {
+            var companyDto = _mapper.Map<CompanyDto>(company);
+            _companyService.Create(companyDto);
 
-                return Ok(company);
-            }
-            return BadRequest(ModelState);
-        }
+            return Ok(company);
+         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]CompanyApiModel company)
-        {
-            if (ModelState.IsValid)
-            {
-                var companyDto = _mapper.Map<CompanyDto>(company);
-                _companyService.Update(companyDto);
+         return BadRequest(ModelState);
+      }
 
-                return Ok();
-            }
-            return BadRequest(ModelState);
-        }
+      [HttpPut("{id}")]
+      public IActionResult Put(int id, [FromBody]CompanyApiModel company)
+      {
+         if (ModelState.IsValid)
+         {
+            var companyDto = _mapper.Map<CompanyDto>(company);
+            _companyService.Update(companyDto);
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var product = _companyService.Get(id);
-            _companyService.Delete(id);
+            return Ok();
+         }
 
-            return Ok(product);
-        }
-    }
+         return BadRequest(ModelState);
+      }
+
+      [HttpDelete("{id}")]
+      public IActionResult Delete(int id)
+      {
+         var product = _companyService.Get(id);
+         _companyService.Delete(id);
+
+         return Ok(product);
+      }
+   }
 }

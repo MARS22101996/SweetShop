@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace SweetShop.DAL.Migrations
 {
-    public partial class removeredundantfromproduct : Migration
+   public partial class removeredundantfromproduct : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

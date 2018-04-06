@@ -48,21 +48,6 @@ namespace SweetShop.BLL.Services
          return productDtos;
       }
 
-      private void SetQuantityInBasketForCurrentUser(CustomerDto customer, List<ProductDto> productDtos)
-      {
-         foreach (var product in productDtos)
-         {
-            product.Quantity = GetQuantityOfProducts(product.Id, customer.Id);
-         }
-      }
-
-      private int GetQuantityOfProducts(int productId, int customerId)
-      {
-         var detailsForProduct = _basketService.GetOrderDetailsForProduct(productId, customerId);
-
-         return detailsForProduct?.Quantity ?? 0;
-      }
-
       public IEnumerable<ProductDto> GetFavourites(string userId)
       {
          var customer = GetCustomerById(userId);
@@ -91,6 +76,7 @@ namespace SweetShop.BLL.Services
          {
             throw new EntityNotFoundException($"Product with such id doesn't exist. Id: {id}");
          }
+
          var productDto = _mapper.Map<ProductDto>(product);
 
          return productDto;
@@ -114,13 +100,6 @@ namespace SweetShop.BLL.Services
          var productCustomer = GetProductCustomerByCustomerId(customer.Id, productId);
 
          return productCustomer != null;
-      }
-
-      private ProductCustomer GetProductCustomerByCustomerId(int customerId, int productId)
-      {
-         var productCustomer = GetProductCustomers(customerId, productId);
-
-         return productCustomer;
       }
 
       public void Create(ProductDto productDto)
@@ -197,7 +176,9 @@ namespace SweetShop.BLL.Services
          if (!product.IsLikedByUser)
          {
             if (product.CustomerProductId != null)
+            {
                DeleteLikeIfCustomerLiked(product.CustomerProductId.Value);
+            }
          }
          else
          {
@@ -250,6 +231,28 @@ namespace SweetShop.BLL.Services
          _unitOfWork.ProductCustomers.Create(productCustomer);
 
          _unitOfWork.Save();
+      }
+
+      private void SetQuantityInBasketForCurrentUser(CustomerDto customer, List<ProductDto> productDtos)
+      {
+         foreach (var product in productDtos)
+         {
+            product.Quantity = GetQuantityOfProducts(product.Id, customer.Id);
+         }
+      }
+
+      private int GetQuantityOfProducts(int productId, int customerId)
+      {
+         var detailsForProduct = _basketService.GetOrderDetailsForProduct(productId, customerId);
+
+         return detailsForProduct?.Quantity ?? 0;
+      }
+
+      private ProductCustomer GetProductCustomerByCustomerId(int customerId, int productId)
+      {
+         var productCustomer = GetProductCustomers(customerId, productId);
+
+         return productCustomer;
       }
    }
 }

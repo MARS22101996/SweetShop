@@ -110,6 +110,7 @@ namespace SweetShop.WEB.Controllers
 
             return Ok(product);
          }
+
          return BadRequest(ModelState);
       }
 
@@ -126,6 +127,7 @@ namespace SweetShop.WEB.Controllers
 
             return Ok();
          }
+
          return BadRequest(ModelState);
       }
 

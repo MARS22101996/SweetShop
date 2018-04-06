@@ -18,6 +18,7 @@ namespace SweetShop.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public IEnumerable<CompanyDto> GetAll()
         {
             var companies = _unitOfWork.Companies.GetAll();
@@ -28,12 +29,13 @@ namespace SweetShop.BLL.Services
 
         public CompanyDto Get(int id)
         {
-            var product =  _unitOfWork.Companies.Get(id);
+            var product = _unitOfWork.Companies.Get(id);
 
             if (product == null)
             {
                 throw new EntityNotFoundException($"Product with such id doesn't exist. Id: {id}");
             }
+
             var productDto = _mapper.Map<CompanyDto>(product);
 
             return productDto;

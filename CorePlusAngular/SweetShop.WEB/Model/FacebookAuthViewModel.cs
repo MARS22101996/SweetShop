@@ -1,5 +1,3 @@
-
-
 namespace SweetShop.WEB.Models
 {
   public class FacebookAuthViewModel

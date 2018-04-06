@@ -42,6 +42,7 @@ namespace SweetShop.BLL.Services
          {
             throw new EntityNotFoundException($"Product with such id doesn't exist. Id: {id}");
          }
+
          var customerDto = _mapper.Map<CustomerDto>(customer);
 
          return customerDto;

@@ -41,7 +41,6 @@ namespace SweetShop.WEB
          Configuration = builder.Build();
       }
 
-
       public IConfiguration Configuration { get; }
 
       public void ConfigureServices(IServiceCollection services)
@@ -92,8 +91,8 @@ namespace SweetShop.WEB
          {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-         }).AddJwtBearer(configureOptions =>
+         })
+         .AddJwtBearer(configureOptions =>
          {
             configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
             configureOptions.TokenValidationParameters = tokenValidationParameters;
@@ -140,14 +139,11 @@ namespace SweetShop.WEB
             builder.WithOrigins("http://sweetshopmaria.azurewebsites.net")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowAnyOrigin()
-         );
-
+            .AllowAnyOrigin());
          app.UseAuthentication();
          app.UseDefaultFiles();
          app.UseStaticFiles();
          app.UseMvc();
-
 
          app.Run(async context =>
          {

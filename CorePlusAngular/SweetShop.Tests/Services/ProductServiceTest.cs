@@ -1,9 +1,9 @@
-﻿using SweetShop.BLL.Interfaces;
-using SweetShop.DAL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using SweetShop.BLL.Interfaces;
+using SweetShop.DAL.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SweetShop.BLL.Dto;
@@ -30,7 +30,7 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void Get_ReturnsCorrectProduct_WhenProductExists()
         {
-            var product = new Product {Id = 1};
+            var product = new Product { Id = 1 };
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.GetProduct(product.Id))
@@ -47,7 +47,7 @@ namespace SweetShop.Tests.Services
             const int productId = 1;
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.GetProduct(productId))
-                .Returns((Product) null);
+                .Returns((Product)null);
 
             Assert.ThrowsException<EntityNotFoundException>(() => _sut.Get(productId));
         }
@@ -55,7 +55,7 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void GetAll_ReturnsCorrectProduct_WhenProductsAreExisted()
         {
-            var products = new List<Product> {new Product {Id = 1}};
+            var products = new List<Product> { new Product { Id = 1 } };
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.GetAllProducts()).Returns(products);
@@ -83,7 +83,7 @@ namespace SweetShop.Tests.Services
         {
             const int companyId = 1;
 
-            var products = new List<Product> {new Product {Id = 1}};
+            var products = new List<Product> { new Product { Id = 1 } };
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<Expression<Func<Product, bool>>>()))
@@ -113,13 +113,13 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void Create_CallsCreateFromDal_WhenProductIsValid()
         {
-            var model = new ProductDto {Id = 1, CompanyId = 1};
+            var model = new ProductDto { Id = 1, CompanyId = 1 };
 
             _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()));
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Companies.Get(model.CompanyId))
-                .Returns(new Company {Id = 1});
+                .Returns(new Company { Id = 1 });
 
             _sut.Create(model);
 
@@ -129,13 +129,13 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void Create_ThrowsEntityNotFoundException_WhenCompanyIsNotExisted()
         {
-            var model = new ProductDto {Id = 1, CompanyId = 1};
+            var model = new ProductDto { Id = 1, CompanyId = 1 };
 
             _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Create(It.IsAny<Product>()));
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Companies.Get(model.CompanyId))
-                .Returns((Company) null);
+                .Returns((Company)null);
 
             Assert.ThrowsException<EntityNotFoundException>(() => _sut.Create(model));
         }
@@ -149,7 +149,7 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void Update_CallsUpdateFromDal_WhenProductIsValid()
         {
-            var model = new ProductDto {Id = 1, CompanyId = 1};
+            var model = new ProductDto { Id = 1, CompanyId = 1 };
 
             _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Products.Update(It.IsAny<Product>()));
 
@@ -167,7 +167,7 @@ namespace SweetShop.Tests.Services
         [TestMethod]
         public void Delete_CallsDeleteMethod_WhenProductIsExisted()
         {
-            var product = new Product {Id = 1};
+            var product = new Product { Id = 1 };
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<int>()))
@@ -188,7 +188,7 @@ namespace SweetShop.Tests.Services
 
             _unitOfWorkMock
                 .Setup(unitOfWork => unitOfWork.Products.Get(It.IsAny<int>()))
-                .Returns((Product) null);
+                .Returns((Product)null);
 
             Assert.ThrowsException<EntityNotFoundException>(() => _sut.Delete(productId));
         }

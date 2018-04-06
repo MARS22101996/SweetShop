@@ -8,13 +8,13 @@ namespace SweetShop.DAL.Entities
 {
    public class Order
    {
-      [Key]
-      public int OrderId { get; set; }
-
       public Order()
       {
          PaymentState = OrderStatus.New;
       }
+
+      [Key]
+      public int OrderId { get; set; }
 
       [Required]
       [ForeignKey("Customer")]

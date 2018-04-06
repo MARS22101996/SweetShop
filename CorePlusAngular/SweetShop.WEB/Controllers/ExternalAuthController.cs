@@ -44,6 +44,7 @@ namespace SweetShop.WEB.Controllers
       var appAccessTokenResponse = await Client.GetStringAsync(
         $"https://graph.facebook.com/oauth/access_token?client_id={_fbAuthSettings.AppId}&client_secret={_fbAuthSettings.AppSecret}&grant_type=client_credentials");
       var appAccessToken = JsonConvert.DeserializeObject<FacebookAppAccessToken>(appAccessTokenResponse);
+
       // 2. validate the user access token
       var userAccessTokenValidationResponse = await Client.GetStringAsync(
         $"https://graph.facebook.com/debug_token?input_token={model.AccessToken}&access_token={appAccessToken.AccessToken}");

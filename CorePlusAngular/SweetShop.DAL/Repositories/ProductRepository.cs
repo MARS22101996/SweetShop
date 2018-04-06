@@ -14,7 +14,6 @@ namespace SweetShop.DAL.Repositories
         public ProductRepository(ApplicationContext context)
             : base(context)
         {
-
         }
 
         public IEnumerable<Product> GetAllProducts()

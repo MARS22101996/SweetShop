@@ -30,8 +30,8 @@ namespace SweetShop.Tests.Services
 
          var products = new List<Product>
          {
-            new Product {Id = 1, Name = name, Likes = 1},
-            new Product {Id = 2, Name = name, Likes = 2}
+            new Product { Id = 1, Name = name, Likes = 1 },
+            new Product { Id = 2, Name = name, Likes = 2 }
          };
 
          _unitOfWorkMock
@@ -114,14 +114,14 @@ namespace SweetShop.Tests.Services
 
          var products = new List<Product>
          {
-            new Product {Id = 1, Likes = 1, CompanyId = 1},
-            new Product {Id = 2, Likes = 2, CompanyId = 1}
+            new Product { Id = 1, Likes = 1, CompanyId = 1 },
+            new Product { Id = 2, Likes = 2, CompanyId = 1 }
          };
 
          var companies = new List<Company>
          {
-            new Company {Id = 1, Name = name},
-            new Company {Id = 2, Name = name}
+            new Company { Id = 1, Name = name },
+            new Company { Id = 2, Name = name }
          };
 
          _unitOfWorkMock

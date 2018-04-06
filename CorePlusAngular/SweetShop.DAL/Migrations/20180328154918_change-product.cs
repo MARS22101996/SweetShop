@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace SweetShop.DAL.Migrations
 {
-    public partial class changeproduct : Migration
+   public partial class changeproduct : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

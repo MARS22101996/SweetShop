@@ -13,10 +13,10 @@ namespace SweetShop.WEB.Controllers
    [Route("api/basket")]
    public class BasketController : Controller
    {
+      private const string ClaimsType = "id";
       private readonly IMapper _mapper;
       private readonly IBasketService _basketService;
       private readonly ClaimsPrincipal _caller;
-      private const string ClaimsType = "id";
 
       public BasketController(
          IBasketService basketService,
@@ -50,9 +50,9 @@ namespace SweetShop.WEB.Controllers
 
             return Ok(orderDetails);
          }
+
          return BadRequest(ModelState);
       }
-
 
       [HttpDelete("{id}")]
       public IActionResult Delete(int id)

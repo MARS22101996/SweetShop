@@ -18,7 +18,7 @@ namespace SweetShop.BLL.Services
       public IEnumerable<StatisticByProductsDto> GetStatisticByProducts()
       {
          var statistic = _unitOfWork.Products.GetAll()
-         .GroupBy(grp => new {grp.Name})
+         .GroupBy(grp => new { grp.Name })
          .Select(result => new StatisticByProductsDto
          {
             Name = result.Key.Name,
@@ -31,11 +31,12 @@ namespace SweetShop.BLL.Services
       public IEnumerable<StatisticByProductsDto> GetStatisticByCompany()
       {
          var statistic = _unitOfWork.Products.GetAll()
-         .Join(_unitOfWork.Companies.GetAll(),
+         .Join(
+            _unitOfWork.Companies.GetAll(),
             product => product.CompanyId,
             company => company.Id,
-            (product, company) => new {company, product})
-         .GroupBy(grp => new {grp.company.Name})
+            (product, company) => new { company, product })
+         .GroupBy(grp => new { grp.company.Name })
          .Select(result => new StatisticByProductsDto
          {
             Name = result.Key.Name,

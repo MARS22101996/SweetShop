@@ -19,7 +19,8 @@ namespace SweetShop.WEB.Controllers
       private readonly UserManager<AppUser> _userManager;
       private readonly IMapper _mapper;
 
-      public AccountsController(UserManager<AppUser> userManager,
+      public AccountsController(
+         UserManager<AppUser> userManager,
          IMapper mapper,
          ApplicationContext appDbContext,
          ICustomerService customerService)
@@ -41,9 +42,12 @@ namespace SweetShop.WEB.Controllers
 
          var result = await _userManager.CreateAsync(userIdentity, model.Password);
 
-         if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+         if (!result.Succeeded)
+         {
+            return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+         }
 
-         await _customerService.CreateAsync(new CustomerDto {IdentityId = userIdentity.Id, Location = model.Location});
+         await _customerService.CreateAsync(new CustomerDto { IdentityId = userIdentity.Id, Location = model.Location });
 
          return new OkObjectResult("Account created");
       }
