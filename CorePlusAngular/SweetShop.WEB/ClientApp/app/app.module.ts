@@ -38,6 +38,7 @@ import { FacebookLoginComponent } from "./account/facebook-login/facebook-login.
 import { FavouritesComponent } from "./favourites/favourites-component";
 import { BasketService } from "./shared/services/basket.service";
 import { BasketComponent } from "./basket/basket.component";
+import { ShipmentComponent } from "./shipment/shipment.component";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -57,8 +58,9 @@ const appRoutes: Routes = [
     { path: 'register', component: RegistrationFormComponent },
     { path: 'products/favourites', component: FavouritesComponent },
     { path: 'basket', component: BasketComponent },
-    { path: '**', redirectTo: '/products' },
-    { path: '', redirectTo: '/products', pathMatch: 'full' },
+    { path: 'shipment', component: ShipmentComponent },
+    { path: '**', redirectTo: '/home' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -97,7 +99,8 @@ const appRoutes: Routes = [
         SpinnerComponent,
         FacebookLoginComponent,
         FavouritesComponent,
-        BasketComponent
+        BasketComponent,
+        ShipmentComponent
     ],
     providers: [
         DataService,
