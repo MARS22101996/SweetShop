@@ -39,6 +39,7 @@ import { FavouritesComponent } from "./favourites/favourites-component";
 import { BasketService } from "./shared/services/basket.service";
 import { BasketComponent } from "./basket/basket.component";
 import { ShipmentComponent } from "./shipment/shipment.component";
+import { ContactComponent } from "./contact/contact.component";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
     { path: 'products/favourites', component: FavouritesComponent },
     { path: 'basket', component: BasketComponent },
     { path: 'shipment', component: ShipmentComponent },
+    { path: 'contact', component: ContactComponent },   
     { path: '**', redirectTo: '/home' },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
@@ -100,7 +102,8 @@ const appRoutes: Routes = [
         FacebookLoginComponent,
         FavouritesComponent,
         BasketComponent,
-        ShipmentComponent
+        ShipmentComponent,
+        ContactComponent
     ],
     providers: [
         DataService,

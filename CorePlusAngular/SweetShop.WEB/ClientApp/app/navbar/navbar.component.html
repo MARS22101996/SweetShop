@@ -11,25 +11,28 @@
       <li class="nav-item px-lg-4">
         <a [routerLink]="['/home']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Home</a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/products']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link text-uppercase text-expanded">All products
                 <span class="sr-only">(current)</span>
               </a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/products/favourites']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Favourites</a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/companies']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Companies</a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/statistic']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Statistic</a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/basket']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Basket</a>
       </li>
-      <li class="nav-item px-lg-4">
+      <li *ngIf="status" class="nav-item px-lg-4">
         <a [routerLink]="['/shipment']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Shipment</a>
+      </li>
+      <li class="nav-item px-lg-4">
+        <a [routerLink]="['/contact']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Contact</a>
       </li>
       <li *ngIf="!status" class="nav-item px-lg-4">
         <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link text-uppercase text-expanded">Login</a>
