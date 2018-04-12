@@ -18,6 +18,7 @@ namespace SweetShop.WEB.Infrastructure.DI
          services.AddTransient<ICustomerService, CustomerService>();
          services.AddTransient<IStatisticService, StatisticService>();
          services.AddTransient<IBasketService, BasketService>();
+         services.AddTransient<IOrderService, OrderService>();
 
          DependencyResolverModule.Configure(services);
       }

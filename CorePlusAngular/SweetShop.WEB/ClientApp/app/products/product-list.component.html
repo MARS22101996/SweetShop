@@ -1,25 +1,37 @@
 ﻿<div class="products-items">
-<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
-<button [routerLink]="['/create']" class="btn btn-sm btn-primary">Create</button>
-<div class="btn-group btn-group-sm">
-	<button class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='name'" (click)="sortByName()">By name </button>
-	<button *ngIf="!companyId" class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
-	<button class="btn intro-button mx-auto" [class.btn-primary]="sortBy==='price'" (click)="sortByPrice()">By Price</button>
-</div>
-<br>
-<div class="layout">
-	<section class="inner">
-		<ul class="grid">
-			<li *ngFor="let p of products" class="grid-tile">
-				<div class="item">
-					<div [routerLink]="['/product', p.id]" class="item-img" style="background-image: url('https://sallysbakingaddiction.com/wp-content/uploads/2017/06/moist-chocolate-cupcakes-5.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
-					<div class="item-pnl">
-						<div class="pnl-wrapper">
-							<div class="pnl-description">
-								<span class="pnl-label">{{p?.name}}</span>
-								<span class="pnl-price">{{p?.price  | currency: 'USD': true }}</span>
-							</div>
-							<!-- <div class="pnl-favorites">
+	<h1 class="site-heading-upper text-primary mb-3">List of products</h1>
+	<div class="item-sort-board">
+	<div class="btn-group btn-group-sm">
+		<div class="intro-button mx-auto">
+			<button class="btn intro-button btn-xs" [class.btn-primary]="sortBy==='name'" (click)="sortByName()">By name </button>
+		</div>
+		<div class="intro-button mx-auto">
+			<button *ngIf="!companyId" class="btn intro-button btn-xs" [class.btn-primary]="sortBy==='company'" (click)="sortByCompany()">By company</button>
+		</div>
+		<div class="intro-button mx-auto">
+			<button class="btn intro-button btn-xs" [class.btn-primary]="sortBy==='price'" (click)="sortByPrice()">By Price</button>
+		</div>
+		<div class="pull-right">
+			<div class="intro-button pull-right">
+				<button [routerLink]="['/create']" class="btn btn-primary btn-xs">Create</button>
+			</div>
+		</div>
+	</div>
+	</div>
+	<br>
+	<div class="layout">
+		<section class="inner">
+			<ul class="grid">
+				<li *ngFor="let p of products" class="grid-tile">
+					<div class="item">
+						<div [routerLink]="['/product', p.id]" class="item-img" style="background-image: url('https://sallysbakingaddiction.com/wp-content/uploads/2017/06/moist-chocolate-cupcakes-5.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+						<div class="item-pnl">
+							<div class="pnl-wrapper">
+								<div class="pnl-description">
+									<span class="pnl-label">{{p?.name}}</span>
+									<span class="pnl-price">{{p?.price  | currency: 'USD': true }}</span>
+								</div>
+								<!-- <div class="pnl-favorites">
 
 									<a [routerLink]="['/edit', p.id]" class="btn btn-sm btn-primary">Edit</a>
 
@@ -29,29 +41,29 @@
 									<button (click)="delete(p.id)" class="btn btn-sm btn-danger">Delete</button>
 
 								</div> -->
-							<div class="pnl-favorites">
-								<span class="pull-right">
+								<div class="pnl-favorites">
+									<span class="pull-right">
 									<input [(ngModel)]="p.quantity" type="number" class="form-control input-number" value="1" min="1" max="10">
 								</span>
-							</div>
-							<div class="pnl-favorites">
-								<span class="pull-right">
+								</div>
+								<div class="pnl-favorites">
+									<span class="pull-right">
 									<button (click)="buy(p)" class="btn btn-sm btn-danger">Add</button>
 								</span>
-							</div>
-							<div class="pnl-favorites">
-								<span class="pull-right">
+								</div>
+								<div class="pnl-favorites">
+									<span class="pull-right">
 										<i (click)="addLike(p)" [ngClass]="!p.isLikedByUser ? 'fa fa-thumbs-up' : 'fa fa-thumbs-down'"></i>
 									</span>
-							</div>
-							<div class="pnl-favorites">
-								<span class="pnl-price text">{{p?.likes}}</span>
+								</div>
+								<div class="pnl-favorites">
+									<span class="pnl-price text">{{p?.likes}}</span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</li>
-		</ul>
-	</section>
-</div>
+				</li>
+			</ul>
+		</section>
+	</div>
 </div>

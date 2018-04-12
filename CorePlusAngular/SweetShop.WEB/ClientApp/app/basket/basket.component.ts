@@ -35,6 +35,11 @@ export class BasketComponent implements OnInit {
     this.basketService.updateOrderDetail(orderDetails).subscribe(data => this.load());
   }
 
+  
+  payOrder(order: Order) {
+    this.basketService.payOrder(order).subscribe(data => this.load());
+  }
+
   convert() {
     let jsPDF = require('jspdf');
     require('jspdf-autotable');

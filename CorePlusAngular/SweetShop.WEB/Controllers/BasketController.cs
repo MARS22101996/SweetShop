@@ -29,11 +29,11 @@ namespace SweetShop.WEB.Controllers
       }
 
       [HttpGet]
-      public BasketApiModel Get()
+      public OrderApiModel Get()
       {
          var userId = _caller.Claims.Single(c => c.Type == ClaimsType);
          var basketForUser = _basketService.GetBasketForUser(userId.Value);
-         var basketApiModel = _mapper.Map<BasketApiModel>(basketForUser);
+         var basketApiModel = _mapper.Map<OrderApiModel>(basketForUser);
 
          return basketApiModel;
       }

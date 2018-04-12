@@ -16,7 +16,7 @@ namespace SweetShop.WEB.Infrastructure.Automapper
          CreateMap<StatisticByProductsDto, StatisticByProductsApiModel>()
          .ForMember(x => x.Label, y => y.MapFrom(z => z.Name))
          .ForMember(x => x.Value, y => y.MapFrom(z => z.Likes));
-         CreateMap<OrderDto, BasketApiModel>()
+         CreateMap<OrderDto, OrderApiModel>()
          .ForMember(x => x.OrderDetails, y => y.MapFrom(z => z.OrderDetailses));
       }
    }

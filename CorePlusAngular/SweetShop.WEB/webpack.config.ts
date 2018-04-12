@@ -32,9 +32,15 @@ module.exports = {
 				test: /\.css$/,
 				include: path.resolve(__dirname, 'ClientApp/app'),
 				loader: 'raw-loader'
-			}
+      },
+		  {
+		    test: /\.(png|svg|jpg|gif)$/,
+		    use: [
+		      'file-loader'
+		    ]
+		  }
 		]
-	},
+  },
 	plugins: [
 		new webpack.ContextReplacementPlugin(
 			/angular(\\|\/)core/,
