@@ -16,6 +16,7 @@ namespace SweetShop.BLL.Infrastructure.Automapper
          CreateMap<AppUserDto, AppUser>();
          CreateMap<OrderDto, Order>();
          CreateMap<OrderDetailsDto, OrderDetails>();
+         CreateMap<FeedbackDto, Feedback>();
       }
    }
 }

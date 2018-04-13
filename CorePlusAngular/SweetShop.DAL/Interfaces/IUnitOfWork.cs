@@ -17,6 +17,8 @@ namespace SweetShop.DAL.Interfaces
 
       IGenericRepository<OrderDetails> OrderDetails { get; }
 
+      IGenericRepository<Feedback> Feedbacks { get; }
+
       void Save();
 
       Task SaveChangesAsync();

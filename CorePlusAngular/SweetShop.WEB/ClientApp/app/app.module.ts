@@ -40,6 +40,7 @@ import { BasketService } from "./shared/services/basket.service";
 import { BasketComponent } from "./basket/basket.component";
 import { ShipmentComponent } from "./shipment/shipment.component";
 import { ContactComponent } from "./contact/contact.component";
+import { FeedbackService } from "./shared/services/feedback.service";
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FintTheme);
 
@@ -79,7 +80,8 @@ const appRoutes: Routes = [
         MatMenuModule,
         FusionChartsModule,
         BrowserAnimationsModule,
-       CommonModule],
+        CommonModule,
+        FormsModule],
     declarations: [
         AppComponent,
         ProductListComponent,
@@ -111,7 +113,8 @@ const appRoutes: Routes = [
         UserService,
         ConfigService,
         AuthGuard,
-        BasketService
+        BasketService,
+        FeedbackService
     ],
     bootstrap: [AppComponent]
 })

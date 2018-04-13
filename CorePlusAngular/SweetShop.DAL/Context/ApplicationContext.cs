@@ -23,6 +23,8 @@ namespace SweetShop.DAL.Context
 
       public DbSet<OrderDetails> OrderDetails { get; set; }
 
+      public DbSet<Feedback> Feedbacks { get; set; }
+
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);

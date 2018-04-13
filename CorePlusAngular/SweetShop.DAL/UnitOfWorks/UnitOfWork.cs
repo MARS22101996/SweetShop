@@ -15,12 +15,14 @@ namespace SweetShop.DAL.UnitOfWorks
       private readonly Lazy<IProductCustomerRepository> _productCustomerRepository;
       private readonly Lazy<IOrderRepository> _orderRepository;
       private readonly Lazy<IGenericRepository<OrderDetails>> _orderDetailsRepository;
+      private readonly Lazy<IGenericRepository<Feedback>> _feedbackRepository;
       private readonly ApplicationContext _db;
       private bool _disposed;
 
       public UnitOfWork(ApplicationContext context)
       {
          _db = context;
+         _feedbackRepository = new Lazy<IGenericRepository<Feedback>>(() => new GenericRepository<Feedback>(_db));
          _productRepository = new Lazy<IProductRepository>(() => new ProductRepository(_db));
          _companyRepository = new Lazy<IGenericRepository<Company>>(() => new GenericRepository<Company>(_db));
          _customerRepository = new Lazy<ICustomerRepository>(() => new CustomersRepository(_db));
@@ -42,6 +44,8 @@ namespace SweetShop.DAL.UnitOfWorks
       public IOrderRepository Orders => _orderRepository.Value;
 
       public IGenericRepository<OrderDetails> OrderDetails => _orderDetailsRepository.Value;
+
+      public IGenericRepository<Feedback> Feedbacks => _feedbackRepository.Value;
 
       public void Save()
       {

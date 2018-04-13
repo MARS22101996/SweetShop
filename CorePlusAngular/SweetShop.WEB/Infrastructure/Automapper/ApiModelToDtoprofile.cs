@@ -16,6 +16,7 @@ namespace SweetShop.WEB.Infrastructure.Automapper
          CreateMap<OrderDetailsApiModel, OrderDetailsDto>()
          .ForMember(x => x.Product, y => y.Ignore());
          CreateMap<OrderApiModel, OrderDto>();
+         CreateMap<FeedbackApiModel, FeedbackDto>();
       }
    }
 }

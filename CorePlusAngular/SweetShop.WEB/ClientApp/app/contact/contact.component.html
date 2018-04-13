@@ -15,18 +15,48 @@
 
                         <div class="col-md-5">
                             <h4><strong>Get in Touch</strong></h4>
-                            <form>
+                            <form #feedbackForm="ngForm"  (ngSubmit)="save(feedbackForm); feedbackForm.resetForm()" autocomplete="off"  novalidate>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="" value="" placeholder="Name">
+                                    <input type="text" class="form-control" required minlength="4" [(ngModel)]="feedback.name" name="name" #name="ngModel"
+                                        placeholder="Name">
+                                    <div *ngIf="name?.invalid && (name.dirty || name.touched || feedbackForm.submitted)" class="alert alert-danger">
+                                        <div *ngIf="name?.errors.required">
+                                            Name is required.
+                                        </div>
+                                        <div *ngIf="name?.errors.minlength">
+                                            Name must be at least 4 characters long.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                                    <input type="email" class="form-control" required minlength="8" [(ngModel)]="feedback.eMail" name="eMail" #eMail="ngModel" placeholder="E-mail">
+                                    <div *ngIf="eMail?.invalid && (eMail.dirty || eMail.touched || feedbackForm.submitted)" class="alert alert-danger">
+                                        <div *ngIf="eMail?.errors.required">
+                                            Email is required.
+                                        </div>
+                                        <div *ngIf="eMail?.errors.minlength">
+                                            Email must be at least 8 characters long.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control" name="" value="" placeholder="Phone">
+                                    <input type="tel" class="form-control" required minlength="10" [(ngModel)]="feedback.phone" name="phone" #phone="ngModel" value="" placeholder="Phone">
+                                    <div *ngIf="phone?.invalid && (phone.dirty || phone.touched || feedbackForm.submitted)" class="alert alert-danger">
+                                        <div *ngIf="phone?.errors.required">
+                                            Phone is required.
+                                        </div>
+                                        <div *ngIf="phone?.errors.minlength">
+                                            Phone must be at least 10 characters long.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <textarea class="form-control" name="" rows="3" placeholder="Message"></textarea>
+                                    <textarea class="form-control" [(ngModel)]="feedback.message" required  name="message" #message="ngModel" rows="3" placeholder="Message"></textarea>
+                                     <div *ngIf="message?.invalid && (message.dirty || message.touched || feedbackForm.submitted)" class="alert alert-danger">
+                                        <div *ngIf="message?.errors.required">
+                                            Message is required.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="intro-button mx-auto">
                                     <button class="btn btn-primary btn-xs" type="submit" name="button">
